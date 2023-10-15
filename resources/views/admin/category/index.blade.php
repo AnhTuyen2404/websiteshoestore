@@ -8,63 +8,78 @@
                 @include('admin.layouts.notification')
             </div>
         </div>
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary float-left">Danh sách mặt hàng</h6>
-            <a href="{{route('category.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Category</a>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                @if(count($categories)>0)
-                    <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Ngày tạo</th>
-                            <th>Trạng thái</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Ngày tạo</th>
-                            <th>Trạng thái</th>
-                            <th>Action</th>
-                        </tr>
-                        </tfoot>
-                        <tbody>
-
-                        @foreach($categories as $category)
-                            @php
+        <div class="content-body">
+            <div class="container-fluid">
+				<div class="row page-titles">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">Category Option</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Category</a></li>
+					</ol>
+                </div>
+                <!-- row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">List Category</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    @if(count($categories)>0)
+                                    <table class="table table-responsive-md">
+                                        <thead>
+                                            <tr>
+                                            <th style="width:80px;"><strong>#</strong></th>
+                                            <th><strong>CODE</strong></th>
+                                            <th><strong>NAME</strong></th>
+                                            <th><strong>DATE</strong></th>
+                                            <th><strong>STATUS</strong></th>
+                                            <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($categories as $category)
+                                    @php
                                     @endphp
-                            <tr>
-                                <td>{{$category->category_id}}</td>
-                                <td>{{$category->category_name}}</td>
-                                <td>{{$category->create_date}}</td>
-                                <td>
-                                    @if($category->category_state=='show')
-                                        <span class="badge badge-success">{{$category->category_state}}</span>
-                                    @else
-                                        <span class="badge badge-warning">{{$category->category_state}}</span>
+                                            <tr>
+                                                <td></td>
+                                                <td>{{$category->category_id}}</td>
+                                                <td>{{$category->category_name}}</td>
+                                                <td>{{$category->create_date}}</td>
+                                                <td>
+                                                 @if($category->category_state=='show')
+                                                    <span class="badge badge-success">{{$category->category_state}}</span>
+                                                @else
+                                                    <span class="badge badge-warning">{{$category->category_state}}</span>
+                                                @endif
+                                                </td>
+                                                <td>
+													<div class="dropdown">
+														<button type="button" class="btn btn-success light sharp" data-bs-toggle="dropdown">
+															<svg width="20px" height="20px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
+														</button>
+														<div class="dropdown-menu">
+															<a class="dropdown-item" href="{{route('category.edit',$category->category_id)}}">Edit</a>
+                                                            <form method="POST" action="{{route('category.destroy',[$category->category_id])}}">
+                                                                @csrf
+                                                                @method('get')
+                                                                <a class="dropdown-item" data-id={{$category->category_id}} href="#">Delete</a>
+                                                            </form>
+															
+														</div>
+													</div>
+												</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                 @else
+                                <h6 class="text-center">No Categories found!!! Please create Category</h6>
                                     @endif
-                                </td>
-                                <td>
-                                    <a href="{{route('category.edit',$category->category_id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                    <form method="POST" action="{{route('category.destroy',[$category->category_id])}}">
-                                        @csrf
-                                        @method('get')
-                                        <button class="btn btn-danger btn-sm dltBtn" data-id={{$category->category_id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                @else
-                    <h6 class="text-center">No Categories found!!! Please create Category</h6>
-                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
