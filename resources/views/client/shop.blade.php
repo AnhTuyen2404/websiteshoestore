@@ -94,11 +94,8 @@
     
                                 <ul class="categories">
                                 <li>
-                                        <a href="/shop" class="nav-link">
-                                        <i class="fa-solid fa-plus"></i>
-                                          Tất cả 
-                                        </a>
-                                    </li>
+                                    <a href="/shop" class="nav-link"><i class="fa-solid fa-plus"></i>Tất cả </a>
+                                </li>
                                 @foreach( $AllCategory as  $key =>  $item )
                                     <li>
                                         <a href="/category/{{ $item->category_id }}" class="nav-link">
@@ -107,9 +104,6 @@
                                         </a>
                                     </li>
                                 @endforeach
-        
-                                    
-        
                                     
                                 </ul>
                             </div>

@@ -15,7 +15,7 @@
 						<li class="breadcrumb-item active"><a href="javascript:void(0)">Category Option</a></li>
 						<li class="breadcrumb-item"><a href="javascript:void(0)">Category</a></li>
 					</ol>
-                </div>
+        </div>
                 <!-- row -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -60,11 +60,12 @@
 														</button>
 														<div class="dropdown-menu">
 															<a class="dropdown-item" href="{{route('category.edit',$category->category_id)}}">Edit</a>
-                                                            <form method="POST" action="{{route('category.destroy',[$category->category_id])}}">
+                                                            <a class="dropdown-item dlt" data-id={{$category->category_id}} href="{{route('category.destroy',[$category->category_id])}}">Delete</a>
+                                                            {{-- <form method="POST" action="{{route('category.destroy',[$category->category_id])}}">
                                                                 @csrf
                                                                 @method('get')
-                                                                <a class="dropdown-item" data-id={{$category->category_id}} href="#">Delete</a>
-                                                            </form>
+                                                                <a class="dropdown-item delete" name= "delete"data-id={{$category->category_id}} href="{{route('category.destroy',[$category->category_id])}}">Delete</a>
+                                                            </form> --}}
 															
 														</div>
 													</div>
@@ -128,7 +129,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $('.dltBtn').click(function(e){
+        $('.dropdown-item dlt').click(function(e){
             var form=$(this).closest('form');
             var dataID=$(this).data('id');
             // alert(dataID);

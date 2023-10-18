@@ -20,16 +20,16 @@ public function ShowRegister(){
     return view('client.register');
 }
 public function Login(Request $request){
-    if($request->phone == null || $request->password == null){
+    if($request->email == null || $request->password == null){
         Alert::warning('Cảnh Báo ! ','Chưa nhập đủ thông tin ');
         return Redirect::to('/show-login');
     }else{
-        $phone = DB::table('customer')->where('customer_phone', $request->phone)->first();
-        if($phone){
-            $password = DB::table('customer')->where('customer_password',$request->password)->first();
+        $email = DB::table('customer')->where('customer_email', $request->phone)->first();
+        if($email){
+            $password = DB::table('customer')->where('customer_password',md5($request->password))->first();
             if($password){
-                Session::put('customer_name',$phone->customer_name);
-                Session::put('customer_id',$phone->customer_id);
+                Session::put('customer_email',$email->customer_name);
+                Session::put('customer_id',$email->customer_id);
                 Alert::success('Thông Báo ! ','Đăng nhập thành công ');
                 return Redirect::to('/');
             }else{
@@ -37,7 +37,7 @@ public function Login(Request $request){
                 return Redirect::to('/show-login');
             }
         }else{
-            Alert::warning('Cảnh Báo ! ','Số điện thoại chưa được đăng ký');
+            Alert::warning('Cảnh Báo ! ','Email chưa được đăng ký');
             return Redirect::to('/show-login');
         }
     }

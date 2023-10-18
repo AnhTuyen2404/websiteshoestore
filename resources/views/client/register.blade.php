@@ -48,54 +48,7 @@
                 --section-subheading-font-weight: 400;
             }
         </style>
-        <div class="page-title-area">
-            <div class="container">
-                <div class="page-title-content">
-                    <h2>Register</h2>
-
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li>Register</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- End Page Banner -->
-
         <!-- Start Register Area -->
-        <section class="register-area ptb-50">
-            <div class="container">
-                <div class="register-form">
-                    <h2>Đăng Ký</h2>
-
-                    <form action="register" method="post">
-                        {{csrf_field()}}
-                        <div class="form-group">
-                            <input name="name" type="text" class="form-control" placeholder="Name">
-                        </div>
-
-                        <div class="form-group">
-                            <input name="email" type="email" class="form-control" placeholder="Email">
-                        </div>
-
-                        <div class="form-group">
-                            <input name="phone" type="text" class="form-control" placeholder="Phone">
-                        </div>
-
-                        <div class="form-group">
-                            <input name="password" type="password" class="form-control" placeholder="Password">
-                        </div>
-
-
-                        <button type="submit">Đăng Ký</button>
-                    </form>
-
-                    <div class="important-text">
-                        <p>Bạn đã có tài khoản? <a href="show-login">Đăng nhập!</a></p>
-                    </div>
-                </div>
-            </div>
-        </section>
         <!-- breadcrumb start -->
         <div class="breadcrumb">
             <div class="container">

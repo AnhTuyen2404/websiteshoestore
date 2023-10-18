@@ -33,7 +33,7 @@ class CategoryController extends Controller
         $ten = $request->input('ten');
         $trangthai = $request->input('trangthai');
 
-        DB::insert('INSERT INTO `category`(`category_id`, `category_name`, `category_state`) VALUES (?,?,?)',[$ma,$ten,$trangthai]);
+        DB::insert('INSERT INTO `category`(`category_id`, `category_name`, `category_state`, `create_date`) VALUES (?,?,?,?)',[$ma,$ten,$trangthai,now()]);
         return redirect()->route('category.index');
     }
 
