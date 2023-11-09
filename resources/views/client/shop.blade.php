@@ -1,321 +1,435 @@
 @extends('layouts.client')
-        @section('content')
-
-       
-        <!-- Start Middle Header Area -->
-        <div class="middle-header-area bg-color">
+@section('content')
+<body>
+        <!-- breadcrumb start -->
+        <div class="breadcrumb">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3">
-                        <div class="middle-header-logo">
-                            <a href="index.html">
-                                <!-- <img src="{{asset ('client/img/logo-2.png')}}" alt="image"> -->
-                            </a>
-                        </div>
-                    </div>
+                <ul class="list-unstyled d-flex align-items-center m-0">
+                    <li><a href="/">Home</a></li>
+                    <li>
+                        <svg class="icon icon-breadcrumb" width="64" height="64" viewBox="0 0 64 64" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g opacity="0.4">
+                                <path
+                                    d="M25.9375 8.5625L23.0625 11.4375L43.625 32L23.0625 52.5625L25.9375 55.4375L47.9375 33.4375L49.3125 32L47.9375 30.5625L25.9375 8.5625Z"
+                                    fill="#000" />
+                            </g>
+                        </svg>
+                    </li>
+                    <li>Products</li>
+                </ul>
+            </div>
+        </div>
+        <!-- breadcrumb end -->
 
-                    <div class="col-lg-6">
-                        <div class="middle-header-search">
-                            <form>
-                                <div class="row align-items-center">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <select>
-                                                <option>All Category</option>
-                                                @foreach( $AllCategory as  $key =>  $item )
-                                                <option value="1">{{$item->category_name}}</option>
-                                                @endforeach
-                                            </select>	
+        <main id="MainContent" class="content-for-layout">
+            <div class="collection mt-100">
+                <div class="container">
+                    <div class="row flex-row-reverse">
+                        <!-- product area start -->
+                        <div class="col-lg-9 col-md-12 col-12">
+                            <div class="filter-sort-wrapper d-flex justify-content-between flex-wrap">
+                                <div class="collection-title-wrap d-flex align-items-end">
+                                    <h2 class="collection-title heading_24 mb-0">All products</h2>
+                                    <p class="collection-counter text_16 mb-0 ms-2">(237 items)</p>
+                                </div>
+                                <div class="filter-sorting">
+                                    <div class="collection-sorting position-relative d-none d-lg-block">
+                                        <div
+                                            class="sorting-header text_16 d-flex align-items-center justify-content-end">
+                                            <span class="sorting-title me-2">Sort by:</span>
+                                            <span class="active-sorting">Featured</span>
+                                            <span class="sorting-icon">
+                                                <svg class="icon icon-down" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-chevron-down">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
+                                            </span>
                                         </div>
+                                        <ul class="sorting-lists list-unstyled m-0">
+                                            <li><a href="#" class="text_14">Featured</a></li>
+                                            <li><a href="#" class="text_14">Best Selling</a></li>
+                                            <li><a href="#" class="text_14">Alphabetically, A-Z</a></li>
+                                            <li><a href="#" class="text_14">Alphabetically, Z-A</a></li>
+                                            <li><a href="#" class="text_14">Price, low to high</a></li>
+                                            <li><a href="#" class="text_14">Price, high to low</a></li>
+                                            <li><a href="#" class="text_14">Date, old to new</a></li>
+                                            <li><a href="#" class="text_14">Date, new to old</a></li>
+                                        </ul>
                                     </div>
-
-                                    <div class="col-md-8">
-                                        <div class="search-box">
-                                            <input type="text" class="form-control" placeholder="Search product...">
-                                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                                        </div>
+                                    <div class="filter-drawer-trigger mobile-filter d-flex align-items-center d-lg-none">
+                                        <span class="mobile-filter-icon me-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="icon icon-filter">
+                                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                                            </svg>
+                                        </span>
+                                        <span class="mobile-filter-heading">Filter and Sorting</span>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                        <ul class="middle-header-optional">
-                            <li><a href="/whishlist"><i class="fa-regular fa-heart"></i></a></li>
-                            <li>
-                                <a href="/show-cart"><i class="fa-solid fa-cart-shopping"></i></i><span><?php echo Cart::count() ?></span></a>
-                            </li>
-                            <li><?php echo Cart::subtotal(0) ?></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Middle Header Area -->
-
-        
-
-        <!-- Start Page Banner -->
-        <div class="page-title-area">
-            <div class="container">
-                <div class="page-title-content">
-                    <h2>Shop Left Sidebar</h2>
-
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li>Shop Left Sidebar</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- End Page Banner -->
-
-        <!-- Start Shop Area -->
-        <section class="shop-area bg-ffffff pt-50 pb-50">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12">
-                        <aside class="widget-area">
-                            <div class="widget widget_search">
-                                <form class="search-form">
-                                    <label>
-                                        <span class="screen-reader-text">Search for:</span>
-                                        <input type="search" class="search-field" placeholder="Search...">
-                                    </label>
-                                    <button type="submit">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                    </button>
-                                </form>
                             </div>
-                    
-                            <div class="widget widget_categories">
-                                <h3 class="widget-title">Categories</h3>
-    
-                                <ul class="categories">
-                                <li>
-                                    <a href="/shop" class="nav-link"><i class="fa-solid fa-plus"></i>Tất cả </a>
-                                </li>
-                                @foreach( $AllCategory as  $key =>  $item )
-                                    <li>
-                                        <a href="/category/{{ $item->category_id }}" class="nav-link">
-                                        <i class="fa-solid fa-plus"></i>
-                                           {{$item->category_name}}
-                                        </a>
-                                    </li>
-                                @endforeach
-                                    
-                                </ul>
+                            <div class="collection-product-container">
+                                
+                                <div class="row">
+                                    @foreach( $AllProduct as  $key =>  $item )
+                                    <div class="col-lg-4 col-md-6 col-6" data-aos="fade-up" data-aos-duration="700">
+                                        
+                                        <div class="product-card">
+                                            <div class="product-card-img">
+                                                <a class="hover-switch" href="/product-details/{{ $item->product_id}}">
+                                                    <img class="secondary-img" src="{{asset ('client/img/shop/'.$item->product_img) }}"
+                                                        alt="product-img">
+                                                    <img class="primary-img" src="{{asset ('client/img/shop/'.$item->product_img) }}"
+                                                        alt="product-img">
+                                                </a>
+                                                <div class="product-badge">
+                                                    <span class="badge-label badge-percentage rounded">-44%</span>
+                                                </div>
+                                                <div
+                                                    class="product-card-action product-card-action-2 justify-content-center">
+                                                    <a href="#quickview-modal" class="action-card action-quickview" 
+                                                        data-bs-toggle="modal">
+                                                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M10 0C15.5117 0 20 4.48828 20 10C20 12.3945 19.1602 14.5898 17.75 16.3125L25.7188 24.2812L24.2812 25.7188L16.3125 17.75C14.5898 19.1602 12.3945 20 10 20C4.48828 20 0 15.5117 0 10C0 4.48828 4.48828 0 10 0ZM10 2C5.57031 2 2 5.57031 2 10C2 14.4297 5.57031 18 10 18C14.4297 18 18 14.4297 18 10C18 5.57031 14.4297 2 10 2ZM11 6V9H14V11H11V14H9V11H6V9H9V6H11Z"
+                                                                fill="#00234D" />
+                                                        </svg>
+                                                    </a>
+                                                    <a href="/add-whishlist/{{$item->product_id}}" class="action-card action-wishlist">
+                                                        <svg class="icon icon-wishlist" width="26" height="22"
+                                                            viewBox="0 0 26 22" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M6.96429 0.000183105C3.12305 0.000183105 0 3.10686 0 6.84843C0 8.15388 0.602121 9.28455 1.16071 10.1014C1.71931 10.9181 2.29241 11.4425 2.29241 11.4425L12.3326 21.3439L13 22.0002L13.6674 21.3439L23.7076 11.4425C23.7076 11.4425 26 9.45576 26 6.84843C26 3.10686 22.877 0.000183105 19.0357 0.000183105C15.8474 0.000183105 13.7944 1.88702 13 2.68241C12.2056 1.88702 10.1526 0.000183105 6.96429 0.000183105ZM6.96429 1.82638C9.73912 1.82638 12.3036 4.48008 12.3036 4.48008L13 5.25051L13.6964 4.48008C13.6964 4.48008 16.2609 1.82638 19.0357 1.82638C21.8613 1.82638 24.1429 4.10557 24.1429 6.84843C24.1429 8.25732 22.4018 10.1584 22.4018 10.1584L13 19.4036L3.59821 10.1584C3.59821 10.1584 3.14844 9.73397 2.69866 9.07411C2.24888 8.41426 1.85714 7.55466 1.85714 6.84843C1.85714 4.10557 4.13867 1.82638 6.96429 1.82638Z"
+                                                                fill="#00234D" />
+                                                        </svg>
+                                                    </a>
+                                                    <a href="/add-one-cart/{{$item->product_id}}" class="action-card action-addtocart">
+                                                        <svg class="icon icon-cart" width="24" height="26"
+                                                            viewBox="0 0 24 26" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M12 0.000183105C9.25391 0.000183105 7 2.25409 7 5.00018V6.00018H2.0625L2 6.93768L1 24.9377L0.9375 26.0002H23.0625L23 24.9377L22 6.93768L21.9375 6.00018H17V5.00018C17 2.25409 14.7461 0.000183105 12 0.000183105ZM12 2.00018C13.6562 2.00018 15 3.34393 15 5.00018V6.00018H9V5.00018C9 3.34393 10.3438 2.00018 12 2.00018ZM3.9375 8.00018H7V11.0002H9V8.00018H15V11.0002H17V8.00018H20.0625L20.9375 24.0002H3.0625L3.9375 8.00018Z"
+                                                                fill="#00234D" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-card-details">
+                                                <ul class="color-lists list-unstyled d-flex align-items-center">
+                                                    <li><a href="javascript:void(0)"
+                                                            class="color-swatch swatch-black active"></a></li>
+                                                    <li><a href="javascript:void(0)"
+                                                            class="color-swatch swatch-cyan"></a></li>
+                                                    <li><a href="javascript:void(0)"
+                                                            class="color-swatch swatch-purple"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3 class="product-card-title">
+                                                    <a href="products-details.html">{{$item->product_name}}</a>
+                                                </h3>
+                                                <div class="product-card-price">
+                                                    <span class="card-price-regular">{{number_format($item->price) }}</span>
+                                                    <span
+                                                        class="card-price-compare text-decoration-line-through">$1759</span>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                                                       
+                                    </div>
+                                    @endforeach           
+                                </div>
                             </div>
                             
-                          
-
-
-                            <div class="widget widget_best-seller-products">
-                                <h3 class="widget-title">Best Seller</h3>
-                                @foreach($Get3Product as $key => $item)
-                                <article class="item">
-                                    <a href="/product-details/{{$item->product_id}}" class="thumb">
-                                        <span class="fullimage cover bg1" role="img" style="background-image: url({{asset ('client/img/shop/'.$item->product_img) }})"></span>
-                                    </a>
-                                    <div class="info">
-                                        <h4 class="title usmall">
-                                            <a href="/product-details/{{$item->product_id}}">{{  $item->product_name}}</a>
-                                        </h4>
-                                        <span> {{date('d-m-Y', strtotime($item->create_date)) }}</span>
-                                        <!-- <ul class="rating">
-                                            <li><i class='bx bxs-star'></i></li>
-                                            <li><i class='bx bxs-star'></i></li>
-                                            <li><i class='bx bxs-star'></i></li>
-                                            <li><i class='bx bxs-star'></i></li>
-                                            <li><i class='bx bxs-star'></i></li>
-                                        </ul> -->
-                                    </div>
-                                </article>
-                                @endforeach
-
-                                
-                            </div>
-
-                            <div class="widget widget_arrival">
-                                <div class="special-products-inner" style="background-image: url({{asset ('client/img/special-products/special-products-bg.jpg')}});">
-                                    <div class="inner-content">
-                                        <span>New Arrival</span>
-                                        <h3>Special Laptop</h3>
-                                        <p>Stock is Limited</p>
-                
-                                        <div class="inner-btn">
-                                            <a href="#" class="default-btn">
-                                                <i class="flaticon-shopping-cart"></i>
-                                                Shop Now
-                                                <span></span>
+                            <div class="pagination justify-content-center mt-100">
+                                <nav>
+                                    <ul class="pagination m-0 d-flex align-items-center">
+                                        <li class="item disabled">
+                                            <a class="link">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-left">
+                                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                                </svg>
                                             </a>
-                                        </div>
+                                        </li>
+                                        <li class="item active"><a class="link" href="#">1</a></li>
+                                        <li class="item"><a class="link" href="#">2</a></li>
+                                        <li class="item"><a class="link" href="#">3</a></li>
+                                        <li class="item"><a class="link" href="#">4</a></li>
+                                        <li class="item">
+                                            <a class="link" href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-right">
+                                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        
+                        <!-- product area end -->
+
+                        <!-- sidebar start -->
+                        <div class="col-lg-3 col-md-12 col-12">
+                            <div class="collection-filter filter-drawer">
+                                <div class="filter-widget d-lg-none d-flex align-items-center justify-content-between">
+                                    <h5 class="heading_24">Filter By</h4>
+                                    <button type="button" class="btn-close text-reset filter-drawer-trigger d-lg-none"></button>
+                                </div>
+
+                                <div class="filter-widget d-lg-none">
+                                    <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
+                                        data-bs-toggle="collapse" data-bs-target="#filter-mobile-sort">
+                                        <span>
+                                            <span class="sorting-title me-2">Sort by:</span>
+                                            <span class="active-sorting">Featured</span>
+                                        </span>
+                                        <span class="faq-heading-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div id="filter-mobile-sort" class="accordion-collapse collapse show">
+                                        <ul class="sorting-lists-mobile list-unstyled m-0">
+                                            <li><a href="#" class="text_14">Featured</a></li>
+                                            <li><a href="#" class="text_14">Best Selling</a></li>
+                                            <li><a href="#" class="text_14">Alphabetically, A-Z</a></li>
+                                            <li><a href="#" class="text_14">Alphabetically, Z-A</a></li>
+                                            <li><a href="#" class="text_14">Price, low to high</a></li>
+                                            <li><a href="#" class="text_14">Price, high to low</a></li>
+                                            <li><a href="#" class="text_14">Date, old to new</a></li>
+                                            <li><a href="#" class="text_14">Date, new to old</a></li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </div>
-                        </aside>
-                    </div>
-                    
-                    <div class="col-lg-8 col-md-12">
-                        <div class="products-filter-options">
-                            <div class="row align-items-center">
-                                <div class="col-lg-4 col-md-4">
-                                    <div class="d-lg-flex d-md-flex align-items-center">
-    
-                                        <span class="sub-title d-none d-lg-block d-md-block">View:</span>
-    
-                                        <div class="view-list-row d-none d-lg-block d-md-block">
-                                            <div class="view-column">
-                                                <a href="#" class="icon-view-two">
-                                                    <span></span>
-                                                    <span></span>
-                                                </a>
-        
-                                                <a href="#" class="icon-view-three active">
-                                                    <span></span>
-                                                    <span></span>
-                                                    <span></span>
-                                                </a>
+                                <div class="filter-widget">
+                                    <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
+                                        data-bs-toggle="collapse" data-bs-target="#filter-collection">
+                                        Categories
+                                        <span class="faq-heading-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div id="filter-collection" class="accordion-collapse collapse show">
+                                        @foreach( $AllCategory as  $key =>  $item )
+                                        <ul class="filter-lists list-unstyled mb-0">
+                                            <li class="filter-item">
+                                                <label class="filter-label">
+                                                    <input type="checkbox" />
+                                                    <span class="filter-checkbox rounded me-2"></span>
+                                                    <span class="filter-text">{{$item->category_name}}</span>   
+                                                </label>
+                                            </li>  
+                                        </ul>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="filter-widget">
+                                    <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
+                                        data-bs-toggle="collapse" data-bs-target="#filter-availability">
+                                        Availability
+                                        <span class="faq-heading-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="filter-widget">
+                                    <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
+                                        data-bs-toggle="collapse" data-bs-target="#filter-price">
+                                        Price
+                                        <span class="faq-heading-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div id="filter-price" class="accordion-collapse collapse show">
+                                        <div class="filter-price d-flex align-items-center justify-content-between">
+                                            <div class="filter-field">
+                                                <input class="field-input" type="number" placeholder="$0" min="0"
+                                                    max="2000.00">
+                                            </div>
+                                            <div class="filter-separator px-3">To</div>
+                                            <div class="filter-field">
+                                                <input class="field-input" type="number" min="0" placeholder="$595.00"
+                                                    max="2000.00">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-    
-                                <div class="col-lg-4 col-md-4">
-                                    <p>Showing 1 – 18 of 100</p>
-                                </div>
-        
-                                <div class="col-lg-4 col-md-4">
-                                    <div class="products-ordering-list">
-                                        <select>
-                                            <option>Sort by price: low to high</option>
-                                            <option>Default sorting</option>
-                                            <option>Sort by popularity</option>
-                                            <option>Sort by average rating</option>
-                                            <option>Sort by latest</option>
-                                            <option>Sort by price: high to low</option>
-                                        </select>
+                                <div class="filter-widget">
+                                    <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
+                                        data-bs-toggle="collapse" data-bs-target="#filter-size">
+                                        Size
+                                        <span class="faq-heading-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </span>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-        
-                        <div id="products-collections-filter" class="row">
-                        @foreach( $AllProduct as  $key =>  $item )
-                            <div class="col-lg-4 col-sm-6">
-                                
-                            
-                                <div class="single-shop-products">
-                                    <div class="shop-products-image">
-                                        <a href="/product-details/{{ $item->product_id}}"><img src="{{asset ('client/img/shop/'.$item->product_img) }}" alt="image"></a>
-                                        <div class="tag">New</div>
-                                        <ul class="shop-action">
-                                            <li>
-                                                <a href="/add-one-cart/{{$item->product_id}}">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                                </a>
+                                    <div id="filter-size" class="accordion-collapse collapse show">
+                                        <ul class="filter-lists list-unstyled mb-0">
+                                            <li class="filter-item">
+                                                <label class="filter-label">
+                                                    <input type="checkbox" />
+                                                    <span class="filter-checkbox rounded me-2"></span>
+                                                    <span class="filter-text">XS</span>
+                                                </label>
                                             </li>
-                                            <li>
-                                                <a href="/add-whishlist/{{$item->product_id}}">
-                                                <i class="fa-regular fa-heart"></i>
-                                                </a>
+                                            <li class="filter-item">
+                                                <label class="filter-label">
+                                                    <input type="checkbox" />
+                                                    <span class="filter-checkbox rounded me-2"></span>
+                                                    S
+                                                </label>
                                             </li>
                                             
-                                            <li>
-                                                <a href="/product-details/{{ $item->product_id}}"  data-bs-target="#productsQuickView"><i class="fa-regular fa-eye"></i></i></a>
-                                            </li>
                                         </ul>
                                     </div>
-        
-                                    <div class="shop-products-content">
-                                        <h3>
-                                            <a href="products-details.html">{{$item->product_name}}</a>
-                                        </h3>
-                                        <!-- <ul class="rating">
-                                            <li><i class='bx bxs-star'></i></li>
-                                            <li><i class='bx bxs-star'></i></li>
-                                            <li><i class='bx bxs-star'></i></li>
-                                            <li><i class='bx bxs-star'></i></li>
-                                            <li><i class='bx bxs-star'></i></li>
-                                        </ul> -->
-                                        <span>{{number_format($item->price) }}</span>
+                                </div>
+                                
+                                    
+                                <div class="filter-widget">
+                                    <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
+                                        data-bs-toggle="collapse" data-bs-target="#filter-type">
+                                        Product Type
+                                        <span class="faq-heading-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="filter-widget">
+                                    <div
+                                        class="filter-header faq-heading heading_18 d-flex align-items-center border-bottom">
+                                        Related products
+                                    </div>
+                                    <div class="filter-related">
+                                        
+                                        
+                                        <div class="related-item d-flex">
+                                            <div class="related-img-wrapper">
+                                                <img class="related-img" src="assets/img/products/furniture/23.jpg"
+                                                    alt="img">
+                                            </div>
+                                            <div class="related-product-info">
+                                                <h2 class="related-heading heading_18">
+                                                    <a href="product.html">Cusion Chair</a>
+                                                </h2>
+                                                <div
+                                                    class="related-review-icon product-icon-star d-flex align-items-center">
+                                                    <img src="assets/img/icon/star.png" alt="img">
+                                                    <img src="assets/img/icon/star.png" alt="img">
+                                                    <img src="assets/img/icon/star.png" alt="img">
+                                                    <img src="assets/img/icon/star.png" alt="img">
+                                                    <img src="assets/img/icon/star.png" alt="img">
+                                                </div>
+                                                <p class="related-price text_16">$1,235</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 
                             </div>
-                            @endforeach
-        
-                            
-        
-        
-                           
-        
-                            
-        
-                         
-        
-                            
-        
-                           
-        
-                            
-        
-                            
-        
-                            
-        
-                           
-        
-                            
-        
-                            
-        
-                            
-                            
                         </div>
+                        <!-- sidebar end -->
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- End Shop Area -->
+        </main>
+        
 
-       <!-- Start Partner Area -->
-       <div class="partner-area ptb-50">
-            <div class="container">
-                <div class="partner-slider owl-carousel owl-theme">
-                    <div class="partner-item">
-                        <a href="#">
-                            <img src="{{asset ('client/img/partner/partner-1.png')}}" alt="image">
-                        </a>
+        <!-- scrollup start -->
+        <button id="scrollup">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>  
+        </button>
+        <!-- scrollup end -->
+
+        <!-- product quickview start -->
+        <div class="modal fade" tabindex="-1" id="quickview-modal">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
-                    <div class="partner-item">
-                        <a href="#">
-                            <img src="{{asset ('client/img/partner/partner-2.png')}}" alt="image">
-                        </a>
-                    </div>
-
-                    <div class="partner-item">
-                        <a href="#">
-                        <img src="{{asset ('client/img/partner/partner-3.png')}}" alt="image">
-                        </a>
-                    </div>
-
-                    <div class="partner-item">
-                        <a href="#">
-                            <img src="{{asset ('client/img/partner/partner-4.png')}}" alt="image">
-                        </a>
-                    </div>
-
-                    <div class="partner-item">
-                        <a href="#">
-                            <img src="{{asset ('client/img/partner/partner-5.png')}}" alt="image">
-                        </a>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-12">
+                                <div class="product-gallery product-gallery-vertical d-flex">
+                                    <div class="product-img-large">
+                                        <div class="qv-large-slider img-large-slider common-slider" data-slick='{
+                                            "slidesToShow": 1, 
+                                            "slidesToScroll": 1,
+                                            "dots": false,
+                                            "arrows": false,
+                                            "asNavFor": ".qv-thumb-slider"
+                                        }'>
+                                            <div class="img-large-wrapper">
+                                                <img src="assets/img/products/bags/39.jpg" alt="img">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="product-img-thumb">
+                                        <div class="qv-thumb-slider img-thumb-slider common-slider" data-vertical-slider="true" data-slick='{
+                                            "slidesToShow": 5, 
+                                            "slidesToScroll": 1,
+                                            "dots": false,
+                                            "arrows": true,
+                                            "infinite": false,
+                                            "speed": 300,
+                                            "cssEase": "ease",
+                                            "focusOnSelect": true,
+                                            "swipeToSlide": true,
+                                            "asNavFor": ".qv-large-slider"
+                                        }'>
+                                            <div>
+                                                <div class="img-thumb-wrapper">
+                                                    <img src="#" alt="img">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="activate-arrows show-arrows-always arrows-white d-none d-lg-flex justify-content-between mt-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-12">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Partner Area -->
-        @endsection
+    </div>
+</body>
+@endsection

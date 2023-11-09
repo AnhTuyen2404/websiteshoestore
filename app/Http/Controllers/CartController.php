@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
-use DB ;
-use Cart;
+use Illuminate\Support\Facades\DB ;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Redirect;
 
@@ -16,8 +16,9 @@ class CartController extends Controller
     }
     public function SaveCart(Request $request){
         $product_id = $request->product_id ;
-        $quantity = $request->quantity ;
         $warehouse = DB::table('product')->where('product_id',$product_id)->get();
+        $quantity = $request->quantity ;
+        $sl_kho = 0;
         foreach( $warehouse as $warehouse){
             $sl_kho =  $warehouse->quantity  ;
         }
@@ -73,6 +74,6 @@ class CartController extends Controller
             $data['options']['image']= $item->product_img;
          }
          Cart::add($data);
-         return Redirect::to('/show-cart');
+         return Redirect::to('/shop');
     }
 }

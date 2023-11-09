@@ -24,12 +24,12 @@ class BlogController extends Controller
     {
         $blog=DB::select('SELECT * FROM `blog` order by blog_id ASC');
         // return $category;
-        return view('admin.banner.index')->with('blogs',$blog);
+        return view('admin.blog.index')->with('blogs',$blog);
     }
 
     public function create()
     {
-        return view('admin.banner.create');
+        return view('admin.blog.create');
     }
 
     public function store(Request $request)
@@ -57,7 +57,7 @@ class BlogController extends Controller
     {
         $blog=DB::select('SELECT * FROM `blog` where blog_id = ?',[$id]);
         // return $category;
-        return view('admin.banner.edit')->with('blog',$blog);
+        return view('admin.blog.edit')->with('blog',$blog);
     }
 
     public function update(Request $request, $id)

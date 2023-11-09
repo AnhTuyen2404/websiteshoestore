@@ -4021,3 +4021,14 @@ blockquote {
     width: 100%;
     margin-right: 0;
     margin-bottom: 15px; } }
+
+#togglePassword {
+      position: relative;
+      bottom: 25px;
+      left: 350px;
+      cursor: pointer;
+  }
+  .save-profile-btn {
+    justify-content: center;
+    align-items: center;
+}

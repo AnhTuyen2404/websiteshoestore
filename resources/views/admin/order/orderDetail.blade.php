@@ -3,19 +3,25 @@
 @section('title','Order Detail')
 
 @section('main-content')
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Order</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Order Detail</a></li>
+            </ol>
+        </div>
     <div class="container">
-        <h1 class="page-title">Chi tiết đơn hàng</h1>
-
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th class="order-header">ID</th>
                     <th class="order-header">Order ID</th>
-                    <th class="order-header">ID sản phẩm</th>
-                    <th class="order-header">Tên sản phẩm</th>
-                    <th class="order-header">Giá sản phẩm</th>
-                    <th class="order-header">Số lượng</th>
-                    <th class="order-header">Hình ảnh</th>
+                    <th class="order-header">Product ID</th>
+                    <th class="order-header">Name</th>
+                    <th class="order-header">Price</th>
+                    <th class="order-header">Quantity</th>
+                    <th class="order-header">Images</th>
              
                 </tr>
             </thead>
@@ -26,7 +32,7 @@
                         <td>{{ $dt->order_id }}</td>
                         <td>{{ $dt->product_id }}</td>
                         <td>{{ $dt->product_name }}</td>
-                        <td>{{ $dt->product_price }}</td>
+                        <td>{{ number_format($dt->product_price) }}</td>
                         <td>{{ $dt->product_quantity }}</td>
                         <td><img src="{{asset ('client/img/shop/'.$dt->product_img)}}" style="width: 60px; height: 60px;" alt=""></td>
                         

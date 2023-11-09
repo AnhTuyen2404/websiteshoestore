@@ -29,7 +29,6 @@
                                     <table class="table table-responsive-md">
                                         <thead>
                                             <tr>
-                                            <th style="width:80px;"><strong>#</strong></th>
                                             <th><strong>CODE</strong></th>
                                             <th><strong>NAME</strong></th>
                                             <th><strong>DATE</strong></th>
@@ -42,7 +41,6 @@
                                     @php
                                     @endphp
                                             <tr>
-                                                <td></td>
                                                 <td>{{$category->category_id}}</td>
                                                 <td>{{$category->category_name}}</td>
                                                 <td>{{$category->create_date}}</td>

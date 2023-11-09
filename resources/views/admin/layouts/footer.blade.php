@@ -1,4 +1,4 @@
-{{-- 
+
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -53,16 +53,16 @@
   <script src="{{asset('backend/vendor/chart.js/Chart.min.js')}}"></script>
 
   <!-- Page level custom scripts -->
-  {{-- <script src="{{asset('backend/js/demo/chart-area-demo.js')}}"></script> --}}
-  {{-- <script src="{{asset('backend/js/demo/chart-pie-demo.js')}}"></script> --}}
+  <script src="{{asset('backend/js/demo/chart-area-demo.js')}}"></script>
+  <script src="{{asset('backend/js/demo/chart-pie-demo.js')}}"></script>
 
-  {{-- @stack('scripts')
+  @stack('scripts')
 
   <script>
     setTimeout(function(){
       $('.alert').slideUp();
     },4000);
-  </script> --}}
+  </script>
   <!--**********************************
             Footer start
         ***********************************-->
@@ -93,8 +93,8 @@
       Scripts
   ***********************************-->
   <!-- Required vendors -->
-  <script src="https://kit.fontawesome.com/1d46ad37f8.js" crossorigin="anonymous"></script>
-  <script src="{{("backend/vendor/global/global.min.js")}}"></script>
+<script src="{{('https://kit.fontawesome.com/1d46ad37f8.js')}}" crossorigin="anonymous"></script>
+<script src="{{("backend/vendor/global/global.min.js")}}"></script>
 <script src="{{("backend/vendor/chart.js/Chart.bundle.min.js")}}"></script>
 <script src="{{("backend/vendor/jquery-nice-select/js/jquery.nice-select.min.js")}}"></script>
 
@@ -110,10 +110,10 @@
 
 <script src="{{("backend/vendor/owl-carousel/owl.carousel.js")}}"></script>
 
-  <script src="{{("backend/js/custom.min.js")}}"></script>
+<script src="{{("backend/js/custom.min.js")}}"></script>
 <script src="{{("backend/js/dlabnav-init.js")}}"></script>
 <script src="{{("backend/js/demo.js")}}"></script>
-  <script src="{{("backend/js/styleSwitcher.js")}}"></script>
+<script src="{{("backend/js/styleSwitcher.js")}}"></script>
 
   @stack('scripts')
 

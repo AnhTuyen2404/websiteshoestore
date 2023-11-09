@@ -3,8 +3,15 @@
 @section('title','Order Detail')
 
 @section('main-content')
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Order</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Order Edit</a></li>
+            </ol>
+        </div>
     <div class="container">
-        <h1 class="page-title">Chỉnh sửa đơn hàng</h1>
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -21,37 +28,45 @@
             @method('PUT')
 
             <div class="form-group">
-                <label for="order_state">Trạng thái đơn hàng:</label>
+                <label for="order_state">Order State:</label>
                 <select id="order_state" name="order_state" class="form-control">
-                    <option value="Chờ xác nhận" {{ $order->order_state === 'Chờ xác nhận' ? 'selected' : '' }}>Chờ xác nhận</option>
-                    <option value="Đã xác nhận" {{ $order->order_state === 'Đã xác nhận' ? 'selected' : '' }}>Đã xác nhận</option>
-                    <option value="Hủy" {{ $order->order_state === 'Hủy' ? 'selected' : '' }}>Hủy</option>
+                    <option value="To Pay" {{ $order->order_state === 'To Pay' ? 'selected' : '' }}>To Pay</option>
+                    <option value="To Ship" {{ $order->order_state === 'To Ship' ? 'selected' : '' }}>To Ship</option>
+                    <option value="To Receive" {{ $order->order_state === 'To Receive' ? 'selected' : '' }}>To Receive</option>
+                    <option value="Completed" {{ $order->order_state === 'Completed' ? 'selected' : '' }}>Completed</option>
+                    <option value="Cancelled" {{ $order->order_state === 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
+                    <option value="Return Refund" {{ $order->order_state === 'Return Refund' ? 'selected' : '' }}>Return Refund</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="create_date">Ngày tạo đơn hàng:</label>
+                <label for="create_date">Created Date:</label>
                 <input type="text" id="create_date" name="create_date" class="form-control" value="{{ $order->create_date }}">
             </div>
 
             <div class="form-group">
-                <label for="total_bill">Tổng hóa đơn:</label>
-                <input type="text" id="total_bill" name="total_bill" class="form-control" value="{{ $order->total_bill }}">
+                <label for="total_bill">Total:</label>
+                <input type="text" id="total_bill" name="total_bill" class="form-control" value="{{ number_format($order->total_bill) }} vnđ">
             </div>
 
             <div class="form-group">
-                <label for="payment_methods">Phương thức thanh toán:</label>
+                <label for="payment_methods">Payment Methods:</label>
                 <input type="text" id="payment_methods" name="payment_methods" class="form-control" value="{{ $order->payment_methods }}">
+                <select id="payment_methods" name="payment_methods" class="form-control">
+                    <option value="Cash on Delivery" {{ $order->order_state === 'Cash on Delivery' ? 'selected' : '' }}>Cash on Delivery</option>
+                    <option value="Online Payment" {{ $order->order_state === 'Online Payment' ? 'selected' : '' }}>Online Payment</option>
+                    
+                </select>
             </div>
 
             <div class="form-group">
-                <label for="shipping_id">Mã địa chỉ giao hàng:</label>
+                <label for="shipping_id">Delivery Address:</label>
                 <input type="text" id="shipping_id" name="shipping_id" class="form-control" value="{{ $order->shipping_id }}" readonly>
             </div>
 
             <!-- Thêm các trường khác tương tự ở đây -->
 
-            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+            <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
     <script>

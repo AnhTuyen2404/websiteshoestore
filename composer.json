@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "aws/aws-sdk-php": "^3.284",
         "brian2694/laravel-toastr": "^5.57",
         "bumbummen99/shoppingcart": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
@@ -13,7 +14,12 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "realrashid/sweet-alert": "^7.1"
+        "nesbot/carbon": "^2.71",
+        "realrashid/sweet-alert": "^7.1",
+        "symfony/http-client": "^6.2",
+        "symfony/postmark-mailer": "^6.2.10",
+        "wildbit/postmark-php": "^5.0"
+        
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -60,6 +66,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

@@ -32,7 +32,7 @@
                                         Look for your inspiration here
                                     </p>
                                     <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
-                                        href="collection-left-sidebar.html"
+                                        href="/shop"
                                         data-animation="animate__animated animate__fadeInUp">SHOP
                                         NOW</a>
                                 </div>
@@ -54,7 +54,7 @@
                                         Look for your inspiration here
                                     </p>
                                     <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
-                                        href="collection-left-sidebar.html"
+                                        href="/shop"
                                         data-animation="animate__animated animate__fadeInUp">SHOP
                                         NOW</a>
                                 </div>
@@ -76,7 +76,7 @@
                                         Look for your inspiration here
                                     </p>
                                     <a class="btn-primary slide-btn animate__animated animate__fadeInUp"
-                                        href="collection-left-sidebar.html"
+                                        href="/shop"
                                         data-animation="animate__animated animate__fadeInUp">SHOP
                                         NOW</a>
                                 </div>

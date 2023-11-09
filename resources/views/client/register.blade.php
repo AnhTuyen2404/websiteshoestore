@@ -69,7 +69,7 @@
             </div>
         </div>
         <!-- breadcrumb end -->
-
+        @include('sweetalert::alert')
         <main id="MainContent" class="content-for-layout">
             <div class="login-page mt-100">
                 <div class="container">
@@ -81,26 +81,26 @@
                         <div class="row">
                             <div class="col-12">
                                 <fieldset>
-                                    <label class="label">First name</label>
-                                    <input type="text" />
+                                    <label class="label">Name</label>
+                                    <input type="text" name="name"/>
                                 </fieldset>
                             </div>
                             <div class="col-12">
                                 <fieldset>
-                                    <label class="label">Last name</label>
-                                    <input type="text" />
+                                    <label class="label">Phone</label>
+                                    <input type="text" name="phone"/>
                                 </fieldset>
                             </div>
                             <div class="col-12">
                                 <fieldset>
                                     <label class="label">Email address</label>
-                                    <input type="email" />
+                                    <input type="email" name="email"/>
                                 </fieldset>
                             </div>
                             <div class="col-12">
                                 <fieldset>
                                     <label class="label">Password</label>
-                                    <input type="password" />
+                                    <input type="password" name="password"/>
                                 </fieldset>
                             </div>
                             <div class="col-12 mt-3">
@@ -112,4 +112,6 @@
             </div>            
         </main>
         <!-- End Register Area -->
+        
         @endsection
+        

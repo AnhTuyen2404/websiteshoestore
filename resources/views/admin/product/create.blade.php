@@ -5,8 +5,8 @@
   <div class="container-fluid">
 <div class="row page-titles">
 <ol class="breadcrumb">
-  <li class="breadcrumb-item active"><a href="javascript:void(0)">Category Option</a></li>
-  <li class="breadcrumb-item"><a href="javascript:void(0)">Category</a></li>
+  <li class="breadcrumb-item active"><a href="javascript:void(0)">Product Option</a></li>
+  <li class="breadcrumb-item"><a href="javascript:void(0)">Add Product</a></li>
 </ol>
 </div>
 <div class="card">
@@ -15,41 +15,63 @@
       <form method="post" action="{{route('product.store')}}" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Mã sản phẩm <span class="text-danger">*</span></label>
-          <input id="" type="text" name="ma" placeholder="Nhập mã sản phẩm"  value="{{old('title')}}" class="form-control">
+          <label for="inputTitle" class="col-form-label">Product Code <span class="text-danger">*</span></label>
+          <input id="" type="text" name="code" placeholder="Enter product code"  value="{{old('title')}}" class="form-control">
           @error('title')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
         <div class="form-group">
-          <label for="summary" class="col-form-label">Tên sản phẩm <span class="text-danger">*</span></label>
-          <textarea placeholder="Nhập tên sản phẩm" class="form-control" id="summary" name="ten">{{old('summary')}}</textarea>
+          <label for="summary" class="col-form-label">Product Name <span class="text-danger">*</span></label>
+          <textarea placeholder="Enter product name" class="form-control" id="summary" name="name">{{old('summary')}}</textarea>
           @error('summary')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
         <div class="form-group">
-          <label for="price" class="col-form-label">Số lượng<span class="text-danger">*</span></label>
-          <input id="price" type="number" name="soluong" placeholder="Nhập số lượng sản phẩm"  value="{{old('price')}}" class="form-control">
+          <label for="price" class="col-form-label">Quantity <span class="text-danger">*</span></label>
+          <div class="basic-form">
+              <div class="input-group mb-3">
+                <span class="input-group-text">36</span>
+                <input type="number" class="form-control size" name="size_36" value="0">
+                <span class="input-group-text">37</span>
+                <input type="number" class="form-control size" name="size_37" value="0">
+                <span class="input-group-text">38</span>
+                <input type="number" class="form-control size" name="size_38" value="0">
+                <span class="input-group-text">39</span>
+                <input type="number" class="form-control size" name="size_39" value="0">
+                <span class="input-group-text">40</span>
+                <input type="number" class="form-control size" name="size_40" value="0">
+                <span class="input-group-text">41</span>
+                <input type="number" class="form-control size" name="size_41" value="0">
+                <span class="input-group-text">42</span>
+                <input type="number" class="form-control size" name="size_42" value="0">
+                <span class="input-group-text">43</span>
+                <input type="number" class="form-control size" name="size_43" value="0">
+                <span class="input-group-text">44</span>
+                <input type="number" class="form-control size" name="size_44" value="0">
+                <span class="input-group-text">45</span>
+                <input type="number" class="form-control size" name="size_45" value="0">
+              </div>
+          </div>
           @error('price')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
-
         <div class="form-group">
-          <label for="summary" class="col-form-label">Nội dung<span class="text-danger">*</span></label>
-          <textarea placeholder="Nhập nội dung sản phẩm" class="form-control" id="summary" name="noidung">{{old('summary')}}</textarea>
+          <label for="summary" class="col-form-label">Description <span class="text-danger">*</span></label>
+          <textarea placeholder="Enter product description" class="form-control" id="summary" name="description">{{old('summary')}}</textarea>
           @error('summary')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
 
         <div class="form-group">
-          <label for="status" class="col-form-label">Trạng thái <span class="text-danger">*</span></label>
-          <select name="trangthai" class="form-control">
+          <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
+          <select name="status" class="form-control">
             <option value="show">Show</option>
             <option value="hide">Hide</option>
           </select>
@@ -59,7 +81,7 @@
         </div>
 
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
+          <label for="inputPhoto" class="col-form-label">Main Image<span class="text-danger">*</span></label>
           <div class="input-group">
             <input type="file" name="image">
           </div>
@@ -70,8 +92,8 @@
         </div>
 
         <div class="form-group">
-          <label for="price" class="col-form-label">Giá<span class="text-danger">*</span></label>
-          <input id="price" type="number" name="gia" placeholder="Nhập giá"  value="{{old('price')}}" class="form-control">
+          <label for="price" class="col-form-label">Price <span class="text-danger">*</span></label>
+          <input id="price" type="number" name="price" placeholder="Enter price"  value="{{old('price')}}" class="form-control">
           @error('price')
           <span class="text-danger">{{$message}}</span>
           @enderror
@@ -81,7 +103,7 @@
         <div class="form-group">
           <label for="cat_id">Category <span class="text-danger">*</span></label>
           <select name="cat_id" id="cat_id" class="form-control">
-              <option value="">--Chọn loại mặt hàng--</option>
+              <option value="">--Select Category--</option>
               @foreach($categories as $key=>$cat_data)
                   <option value='{{$cat_data->category_id}}'>{{$cat_data->category_name}}</option>
               @endforeach
@@ -97,6 +119,7 @@
 </div>
 
 @endsection
+
 
 @push('styles')
 <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}">

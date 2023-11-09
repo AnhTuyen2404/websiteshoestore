@@ -14,6 +14,15 @@ return [
     */
 
     'default' => env('MAIL_MAILER', 'smtp'),
+    // 'driver' => env('MAIL_DRIVER', 'smtp'),
+
+    // 'stream' => [
+    //     'ssl'=> [
+    //         'allow_seft_singed' =>true,
+    //         'verify_peer'=>false,
+    //         'verify_peer_name'=>false,
+    //     ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -36,11 +45,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
+            'encryption' => 'tls',
+            'username' => '20004246@st.vlute.edu.vn',
+            'password' => 'gzgmpevdicvnogxn',
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -53,8 +62,11 @@ return [
             'transport' => 'mailgun',
         ],
 
+        // 'postmark' => [
+        //     'transport' => 'postmark',
+        // ],
         'postmark' => [
-            'transport' => 'postmark',
+            'token' => env('POSTMARK_TOKEN'),
         ],
 
         'sendmail' => [
@@ -92,8 +104,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', '20004246@st.vlute.edu.vn'),
+        'name' => env('MAIL_FROM_NAME', 'Website Bán Giày'),
     ],
 
     /*

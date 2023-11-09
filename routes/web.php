@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShippingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
@@ -9,6 +15,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AuthenticatorController;
 use App\Http\Controllers\WhishlistController;
+use App\Http\Controllers\ResetPasswordController;
 
 
 /*
@@ -37,7 +44,8 @@ Route::get('/blog-details/{id}',[BlogController::class,'GetBlogDetails'] );
 
 //Cart
 Route::get('/show-cart',[CartController::class,'ShowCart'] );
-Route::post('/save-cart',[CartController::class,'SaveCart'] );
+// Route::post('/save-cart',[CartController::class,'SaveCart'] );
+Route::get('/save-cart',[CartController::class,'SaveCart'] );
 Route::get('/add-one-cart/{id}',[CartController::class,'AddOneCart'] );
 Route::get('/delete-cart/{rowId}',[CartController::class,'DeleteCart'] );
 Route::post('/update-cart',[CartController::class,'UpdateCart'] );
@@ -52,6 +60,15 @@ Route::get('/show-register',[AuthenticatorController::class,'ShowRegister'] );
 Route::post('/register',[AuthenticatorController::class,'Register'] );
 Route::post('/login',[AuthenticatorController::class,'Login'] );
 Route::get('/logout',[AuthenticatorController::class,'Logout'] );
+Route::get('/profile',[AuthenticatorController::class,'Profile'] );
+Route::get('/edit-profile',[AuthenticatorController::class,'editProfile']);
+Route::post('/update-profile',[AuthenticatorController::class,'updateProfile']);
+
+//reset-password
+Route::get('/forget-password', [ResetPasswordController::class,'forgetPassword'] );
+Route::post('/check-mail', [ResetPasswordController::class,'checkMail'] );
+Route::get('/newpassword',[ResetPasswordController::class,'viewNewPassword']);
+Route::post('/reset-password',[ResetPasswordController::class,'reset']);
 
 //whishlist
 Route::get('/whishlist',[WhishlistController::class,'ShowWhishlist'] );
@@ -59,42 +76,45 @@ Route::get('/add-whishlist/{id}',[WhishlistController::class,'AddWhishlist'] );
 Route::get('/delete-whishlist/{id}',[WhishlistController::class,'DeleteWhishlist'] );
 
 //admin
-Route::get('/admin',[\App\Http\Controllers\AdminController::class, 'index']);
+Route::get('/admin',[AdminController::class, 'index']);
+Route::get('/adlogin',[AdminController::class, 'adLogin']);
+
 //category
-Route::get('/category',[\App\Http\Controllers\CategoryController::class, 'index'])->name('category.index');
-Route::get('/category.create',[\App\Http\Controllers\CategoryController::class, 'create'])->name('category.create');
-Route::get('/category.edit{id}',[\App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
-Route::get('/category.destroy{id}',[\App\Http\Controllers\CategoryController::class, 'destroy'])->name('category.destroy');
-Route::post('/category.store',[\App\Http\Controllers\CategoryController::class, 'store'])->name('category.store');
-Route::post('/category.update{id}',[\App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
+Route::get('/category',[CategoryController::class, 'index'])->name('category.index');
+Route::get('/category.create',[CategoryController::class, 'create'])->name('category.create');
+Route::get('/category.edit{id}',[CategoryController::class, 'edit'])->name('category.edit');
+Route::get('/category.destroy{id}',[CategoryController::class, 'destroy'])->name('category.destroy');
+Route::post('/category.store',[CategoryController::class, 'store'])->name('category.store');
+Route::post('/category.update{id}',[CategoryController::class, 'update'])->name('category.update');
 //blog
-Route::get('/blogad',[\App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog.create',[\App\Http\Controllers\BlogController::class, 'create'])->name('blog.create');
-Route::get('/blog.edit{id}',[\App\Http\Controllers\BlogController::class, 'edit'])->name('blog.edit');
-Route::post('/blog.destroy{id}',[\App\Http\Controllers\BlogController::class, 'destroy'])->name('blog.destroy');
-Route::post('/blog.store',[\App\Http\Controllers\BlogController::class, 'store'])->name('blog.store');
-Route::post('/blog.update{id}',[\App\Http\Controllers\BlogController::class, 'update'])->name('blog.update');
+Route::get('/blogad',[BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog.create',[BlogController::class, 'create'])->name('blog.create');
+Route::get('/blog.edit{id}',[BlogController::class, 'edit'])->name('blog.edit');
+Route::post('/blog.destroy{id}',[BlogController::class, 'destroy'])->name('blog.destroy');
+Route::post('/blog.store',[BlogController::class, 'store'])->name('blog.store');
+Route::post('/blog.update{id}',[BlogController::class, 'update'])->name('blog.update');
 //product
-Route::get('/productad',[\App\Http\Controllers\ProductController::class, 'index'])->name('product.index');
-Route::get('/product.create',[\App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
-Route::get('/product.edit{id}',[\App\Http\Controllers\ProductController::class, 'edit'])->name('product.edit');
-Route::post('/product.destroy{id}',[\App\Http\Controllers\ProductController::class, 'destroy'])->name('product.destroy');
-Route::post('/product.store',[\App\Http\Controllers\ProductController::class, 'store'])->name('product.store');
-Route::post('/product.update{id}',[\App\Http\Controllers\ProductController::class, 'update'])->name('product.update');
+Route::get('/productad',[ProductController::class, 'index'])->name('product.index');
+Route::get('/product.create',[ProductController::class, 'create'])->name('product.create');
+Route::get('/product.edit{id}',[ProductController::class, 'edit'])->name('product.edit');
+Route::post('/product.destroy{id}',[ProductController::class, 'destroy'])->name('product.destroy');
+Route::post('/product.store',[ProductController::class, 'store'])->name('product.store');
+Route::post('/product.update{id}',[ProductController::class, 'update'])->name('product.update');
 //order
-Route::get('/order-index', [\App\Http\Controllers\OrderController::class, 'index'])->name('order_index');
-Route::get('/order-details{id}', [\App\Http\Controllers\OrderController::class, 'showOrderDetails'])->name('order_details');
-Route::get('/edit-order{id}', [\App\Http\Controllers\OrderController::class, 'edit'])->name('edit_order');
-Route::put('/update-order{id}', [\App\Http\Controllers\OrderController::class, 'updateOrder'])->name('update_order');
+Route::get('/order-index', [OrderController::class, 'index'])->name('order_index');
+Route::get('/order-details{id}', [OrderController::class, 'showOrderDetails'])->name('order_details');
+Route::get('/edit-order{id}', [OrderController::class, 'edit'])->name('edit_order');
+Route::put('/update-order{id}', [OrderController::class, 'updateOrder'])->name('update_order');
 //shipping
-Route::get('/shipping', [\App\Http\Controllers\ShippingController::class, 'shipping'])->name('admin.shipping');
-Route::get('/shipping.edit{id}', [\App\Http\Controllers\ShippingController::class, 'shipping_edit'])->name('shipping_edit');
-Route::post('/update-shipping{id}', [\App\Http\Controllers\ShippingController::class, 'updateShipping'])->name('updateShipping');
-Route::delete('/shipping.delete{id}', [\App\Http\Controllers\ShippingController::class, 'deleteShipping'])->name('deleteShipping');
+Route::get('/shipping', [ShippingController::class, 'shipping'])->name('admin.shipping');
+Route::get('/shipping.edit{id}', [ShippingController::class, 'shipping_edit'])->name('shipping_edit');
+Route::post('/update-shipping{id}', [ShippingController::class, 'updateShipping'])->name('updateShipping');
+Route::delete('/shipping.delete{id}', [ShippingController::class, 'deleteShipping'])->name('deleteShipping');
 //user
-Route::get('/accounts', [\App\Http\Controllers\UserController::class, 'accounts'])->name('admin.accounts');
-Route::get('/edit-account{id}', [\App\Http\Controllers\UserController::class, 'editAccount'])->name('admin.editAccount');
-Route::post('/update-account{id}', [\App\Http\Controllers\UserController::class, 'updateAccount'])->name('admin.updateAccount');
-Route::delete('/account{id}', [\App\Http\Controllers\UserController::class, 'deleteAccount'])->name('admin.deleteAccount');
-Route::get('/account{id}/confirm-delete', [\App\Http\Controllers\UserController::class, 'showDeleteConfirmation'])->name('admin.showDeleteConfirmation');
+Route::get('/accounts', [UserController::class, 'accounts'])->name('admin.accounts');
+Route::get('/edit-account{id}', [UserController::class, 'editAccount'])->name('admin.editAccount');
+Route::post('/update-account{id}', [UserController::class, 'updateAccount'])->name('admin.updateAccount');
+Route::delete('/account{id}', [UserController::class, 'deleteAccount'])->name('admin.deleteAccount');
+Route::get('/account{id}/confirm-delete', [UserController::class, 'showDeleteConfirmation'])->name('admin.showDeleteConfirmation');
+
 

@@ -2,54 +2,44 @@
 
 @section('main-content')
  <!-- DataTales Example -->
- <div class="content-body">
+<div class="content-body">
   <div class="container-fluid">
-<div class="row page-titles">
-<ol class="breadcrumb">
-  <li class="breadcrumb-item active"><a href="javascript:void(0)">Category Option</a></li>
-  <li class="breadcrumb-item"><a href="javascript:void(0)">Category</a></li>
-</ol>
+    <div class="row page-titles">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">Product Option</a></li> 
+      </ol>
 </div>
- <div class="card shadow mb-4">
-     <div class="row">
+    <div class="card shadow mb-4">
+      <div class="row">
          <div class="col-md-12">
             @include('admin.layouts.notification')
          </div>
      </div>
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary float-left">Product Lists</h6>
+    <div class="card-header">
+      <h6 class="card-title"> Product List</h6>
       <a href="{{route('product.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Product</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
         @if(count($products)>0)
-        <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
+        <table class="table table-responsive-md" >
           <thead>
             <tr>
-              <th>S.N.</th>
-              <th>Tên sản phẩm</th>
-              <th>Số lượng</th>
-              <th>Ảnh</th>
-              <th>Giá</th>
-              <th>Ngày tạo</th>
-              <th>Tên loại hàng</th>
-              <th>Status</th>
-              <th>Action</th>
+              <tr>
+                <th><strong>Code Product</strong></th>
+                <th><strong>Product Name</strong></th>
+                <th><strong>Quantity</strong></th>
+                <th><strong>Image</strong></th>
+                <th><strong>Price</strong></th>
+                <th><strong>Creation Date</strong></th>
+                <th><strong>Category Name</strong></th>
+                <th><strong>Status</strong></th>
+                <th><strong>Action</strong></th>
+              </tr>
+              
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-                <th>S.N.</th>
-                <th>Tên sản phẩm</th>
-                <th>Số lượng</th>
-                <th>Ảnh</th>
-                <th>Giá</th>
-                <th>Ngày tạo</th>
-                <th>Tên loại hàng</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-          </tfoot>
+          
           <tbody>
 
             @foreach($products as $product)
@@ -66,7 +56,7 @@
                         @endif
                     </td>
 
-                    <td>{{$product->price}}</td>
+                    <td>{{number_format($product->price)}}</td>
                     <td>{{$product->create_date}}</td>
                     <td>{{$product->category_name}}</td>
 

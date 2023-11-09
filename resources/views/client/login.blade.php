@@ -1,53 +1,6 @@
 @extends('layouts.client')
-        @section('content')
-        <style>
-            :root {
-                --primary-color: #00234D;
-                --secondary-color: #F76B6A;
-    
-                --btn-primary-border-radius: 0.25rem;
-                --btn-primary-color: #fff;
-                --btn-primary-background-color: #00234D;
-                --btn-primary-border-color: #00234D;
-                --btn-primary-hover-color: #fff;
-                --btn-primary-background-hover-color: #00234D;
-                --btn-primary-border-hover-color: #00234D;
-                --btn-primary-font-weight: 500;
-    
-                --btn-secondary-border-radius: 0.25rem;
-                --btn-secondary-color: #00234D;
-                --btn-secondary-background-color: transparent;
-                --btn-secondary-border-color: #00234D;
-                --btn-secondary-hover-color: #fff;
-                --btn-secondary-background-hover-color: #00234D;
-                --btn-secondary-border-hover-color: #00234D;
-                --btn-secondary-font-weight: 500;
-    
-                --heading-color: #000;
-                --heading-font-family: 'Poppins', sans-serif;
-                --heading-font-weight: 700;
-    
-                --title-color: #000;
-                --title-font-family: 'Poppins', sans-serif;
-                --title-font-weight: 400;
-    
-                --body-color: #000;
-                --body-background-color: #fff;
-                --body-font-family: 'Poppins', sans-serif;
-                --body-font-size: 14px;
-                --body-font-weight: 400;
-    
-                --section-heading-color: #000;
-                --section-heading-font-family: 'Poppins', sans-serif;
-                --section-heading-font-size: 48px;
-                --section-heading-font-weight: 600;
-    
-                --section-subheading-color: #000;
-                --section-subheading-font-family: 'Poppins', sans-serif;
-                --section-subheading-font-size: 16px;
-                --section-subheading-font-weight: 400;
-            }
-        </style>
+@section('content')
+@include('sweetalert::alert')
         <!-- breadcrumb start -->
         <div class="breadcrumb">
             <div class="container">
@@ -68,30 +21,32 @@
             </div>
         </div>
         <!-- breadcrumb end -->
-
+        
         <main id="MainContent" class="content-for-layout">
             <div class="login-page mt-100">
                 <div class="container">
                     <form action="login" method="post" class="login-form common-form mx-auto">
                         {{csrf_field()}}
                         <div class="section-header mb-3">
-                            <h2 class="section-heading text-center">Login</h2>
+                            <h2 class="section-heading text-center">Login</h2> 
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <fieldset>
-                                    <label class="label">Email address</label>
-                                    <input type="email" />
+                                    <label class="label" >Email address</label>
+                                    <input type="email" name="email"/>
                                 </fieldset>
                             </div>
                             <div class="col-12">
                                 <fieldset>
-                                    <label class="label">Password</label>
-                                    <input type="password" />
+                                    
+                                    <label class="label" >Password</label>
+                                    <input type="password" name="password" id="password"/>
+                                    <i class="fa-regular fa-eye-slash" id="togglePassword" onclick="togglePasswordVisibility()"></i>                      
                                 </fieldset>
                             </div>
                             <div class="col-12 mt-3">
-                                <a href="#" class="text_14 d-block">Forgot your password?</a>
+                                <a href="forget-password" class="text_14 d-block">Forgot your password?</a>
                                 <button type="submit" class="btn-primary d-block mt-4 btn-signin">SIGN IN</button>
                                 <a href="show-register" class="btn-secondary mt-2 btn-signin">CREATE AN ACCOUNT</a>
                             </div>
@@ -101,4 +56,21 @@
             </div>            
         </main>
         <!-- End Login Area -->
-        @endsection
+        <script>
+            function togglePasswordVisibility() {
+            var passwordField = document.getElementById("password");
+            var toggleIcon = document.getElementById("togglePassword");
+
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    toggleIcon.classList.remove("fa-eye-slash");
+                    toggleIcon.classList.add("fa-eye");
+                } else {
+                    passwordField.type = "password";
+                    toggleIcon.classList.remove("fa-eye");
+                    toggleIcon.classList.add("fa-eye-slash");
+                }
+                }           
+        </script>
+@endsection
+        

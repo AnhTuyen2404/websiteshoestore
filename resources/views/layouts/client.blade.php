@@ -1,3 +1,7 @@
+<?php
+session_start();
+$customerData = Session::get('customer_data');
+?>
 <!doctype html>
 <html lang="en" class="no-js">
 
@@ -12,8 +16,10 @@
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="{{asset('client/fontawesome-free-6.4.2-web/css/fontawesome.css')}}" rel="stylesheet">
+    <link href="{{asset('client/fontawesome-free-6.4.2-web/css/brands.css')}}" rel="stylesheet">
+    <link href="{{asset('client/fontawesome-free-6.4.2-web/css/solid.css')}}" rel="stylesheet">
     <!-- all css -->
     <style>
         :root {
@@ -88,69 +94,49 @@
                     </div>
                     <div class="col-lg-3 d-lg-block d-none">
                         <div class="announcement-meta-wrapper d-flex align-items-center justify-content-end">
-                            <div class="announcement-meta d-flex align-items-center">
-                                <a class="announcement-login announcement-text text-white" href="show-login">
-                                    <svg class="icon icon-user" width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M5 0C3.07227 0 1.5 1.57227 1.5 3.5C1.5 4.70508 2.11523 5.77539 3.04688 6.40625C1.26367 7.17188 0 8.94141 0 11H1C1 8.78516 2.78516 7 5 7C7.21484 7 9 8.78516 9 11H10C10 8.94141 8.73633 7.17188 6.95312 6.40625C7.88477 5.77539 8.5 4.70508 8.5 3.5C8.5 1.57227 6.92773 0 5 0ZM5 1C6.38672 1 7.5 2.11328 7.5 3.5C7.5 4.88672 6.38672 6 5 6C3.61328 6 2.5 4.88672 2.5 3.5C2.5 2.11328 3.61328 1 5 1Z"
-                                            fill="#fff" />
-                                    </svg>
-                                    <span>Login</span>
-                                </a>
-                                <span class="separator-login d-flex px-3">
-                                    <svg width="2" height="9" viewBox="0 0 2 9" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path opacity="0.4" d="M1 0.5V8.5" stroke="#FEFEFE" stroke-linecap="round" />
-                                    </svg>
-                                </span>
-                                <div class="currency-wrapper">
-                                    <button type="button" class="currency-btn btn-reset text-white"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img class="flag" src="<?php echo e(('client/img/flag/usd.jpg')); ?>" alt="img">
-                                        <span>USD</span>
-                                        <span>
-                                            <svg class="icon icon-dropdown" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff"
-                                                stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                            </svg>
-                                        </span>
-                                    </button>
-
-                                    <ul class="currency-list dropdown-menu dropdown-menu-end px-2">
-                                        <li class="currency-list-item ">
-                                            <a class="currency-list-option" href="#" data-value="USD">
-                                                <img class="flag" src="<?php echo e(('client/img/flag/usd.jpg')); ?>" alt="img">
-                                                <span>USD</span>
-                                            </a>
-                                        </li>
-                                        <li class="currency-list-item ">
-                                            <a class="currency-list-option" href="#" data-value="CAD">
-                                                <img class="flag" src="{{('client/img/flag/cad.jpg')}}" alt="img">
-                                                <span>CAD</span>
-                                            </a>
-                                        </li>
-                                        <li class="currency-list-item ">
-                                            <a class="currency-list-option" href="#" data-value="EUR">
-                                                <img class="flag" src="{{('client/img/flag/eur.jpg')}}" alt="img">
-                                                <span>EUR</span>
-                                            </a>
-                                        </li>
-                                        <li class="currency-list-item ">
-                                            <a class="currency-list-option" href="#" data-value="JPY">
-                                                <img class="flag" src="{{('client/img/flag/jpy.jpg')}}" alt="img">
-                                                <span>JPY</span>
-                                            </a>
-                                        </li>
-                                        <li class="currency-list-item ">
-                                            <a class="currency-list-option" href="#" data-value="GBP">
-                                                <img class="flag" src="{{('client/img/flag/gbp.jpg')}}" alt="img">
-                                                <span>GBP</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div class="announcement-meta d-flex align-items-center">                
+                                @if(isset($customerData))
+                                    <a class="announcement-login announcement-text text-white" href="#">
+                                        <span>{{ $customerData['name'] }}</span>
+                                    </a>
+                                    <span class="separator-login d-flex px-3">
+                                        <svg width="2" height="9" viewBox="0 0 2 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.4" d="M1 0.5V8.5" stroke="#FEFEFE" stroke-linecap="round" />
+                                        </svg>
+                                    </span>
+                                    <div class="currency-wrapper">
+                                        <button type="button" class="currency-btn btn-reset text-white"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span>Option</span>
+                                            <span>
+                                                <svg class="icon icon-dropdown" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                                                    stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <ul class="currency-list dropdown-menu dropdown-menu-end px-2">
+                                            <li class="currency-list-item ">
+                                                <a class="currency-list-option" href="{{URL::to('/profile')}}" >
+                                                    <span>Profile</span>
+                                                </a>
+                                                <li class="currency-list-item ">
+                                                    <a class="currency-list-option" href="{{URL::to('/logout')}}" >
+                                                        <span>Log Out</span>
+                                                    </a>
+                                                </li>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                @else
+                                    <a class="announcement-login announcement-text text-white" href="show-login">
+                                        <svg class="icon icon-user" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 0C3.07227 0 1.5 1.57227 1.5 3.5C1.5 4.70508 2.11523 5.77539 3.04688 6.40625C1.26367 7.17188 0 8.94141 0 11H1C1 8.78516 2.78516 7 5 7C7.21484 7 9 8.78516 9 11H10C10 8.94141 8.73633 7.17188 6.95312 6.40625C7.88477 5.77539 8.5 4.70508 8.5 3.5C8.5 1.57227 6.92773 0 5 0ZM5 1C6.38672 1 7.5 2.11328 7.5 3.5C7.5 4.88672 6.38672 6 5 6C3.61328 6 2.5 4.88672 2.5 3.5C2.5 2.11328 3.61328 1 5 1Z" fill="#fff" />
+                                        </svg>
+                                        <span>Log In</span>
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -185,7 +171,7 @@
                                     </li>
                                     <li class="menu-list-item nav-item has-megamenu">
                                         <div class="mega-menu-header">
-                                            <a class="nav-link" href="collection-left-sidebar.html">Shop</a>
+                                            <a class="nav-link" href="{{URL::to('/shop')}}">Shop</a>
                                         </div>
                                     </li>
                                     <li class="menu-list-item nav-item has-dropdown">
@@ -203,7 +189,7 @@
                                         <div class="submenu-transform submenu-transform-desktop">
                                             <ul class="submenu list-unstyled">
                                                 <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub" href="blog.html">Blog</a>
+                                                    <a class="nav-link-sub nav-text-sub" href="blog.store">Blog</a>
                                                 </li>
                                                 <li class="menu-list-item nav-item-sub">
                                                     <a class="nav-link-sub nav-text-sub" href="article.html">Blog
@@ -250,14 +236,14 @@
                                                 </li>
                                                 <li class="menu-list-item nav-item-sub">
                                                     <a class="nav-link-sub nav-text-sub"
-                                                        href="wishlist.html">Wishlist</a>
+                                                        href="whishlist">Wishlist</a>
                                                 </li>
                                                 <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub" href="cart.html">Cart</a>
+                                                    <a class="nav-link-sub nav-text-sub" href="show-cart">Cart</a>
                                                 </li>
                                                 <li class="menu-list-item nav-item-sub">
                                                     <a class="nav-link-sub nav-text-sub"
-                                                        href="checkout.html">Checkout</a>
+                                                        href="checkout">Checkout</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -870,121 +856,59 @@
         <!-- drawer cart start -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="drawer-cart">
             <div class="offcanvas-header border-btm-black">
-                <h5 class="cart-drawer-heading text_16">Your Cart (04)</h5>
+                <h5 class="cart-drawer-heading text_16">Your Cart (<?php echo Cart::count() ?>)</h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
             </div>
             <div class="offcanvas-body p-0">
                 <div class="cart-content-area d-flex justify-content-between flex-column">
                     <div class="minicart-loop custom-scrollbar">
+                        <?php
+                            $Cart = Cart::content();
+                        ?>
+                        @foreach($Cart as $item)
                         <!-- minicart item -->
                         <div class="minicart-item d-flex">
                             <div class="mini-img-wrapper">
-                                <img class="mini-img" src="{{('client/img/products/furniture/1.jpg')}}" alt="img">
+                                <img class="mini-img" src="{{asset ('client/img/shop/'.$item->options->image) }}" alt="img">
                             </div>
                             <div class="product-info">
-                                <h2 class="product-title"><a href="#">Eliot Reversible Sectional</a></h2>
+                                <h2 class="product-title"><a href="#">{{$item->name}}</a></h2>
                                 <p class="product-vendor">XS / Dove Gray</p>
                                 <div class="misc d-flex align-items-end justify-content-between">
                                     <div class="quantity d-flex align-items-center justify-content-between">
                                         <button class="qty-btn dec-qty"><img src="{{('client/img/icon/minus.svg')}}"
                                                 alt="minus"></button>
-                                        <input class="qty-input" type="number" name="qty" value="1" min="0">
+                                        <input class="qty-input" type="number" name="qty" value="{{$item->qty}}" min="0">
                                         <button class="qty-btn inc-qty"><img src="{{('client/img/icon/plus.svg')}}"
                                                 alt="plus"></button>
                                     </div>
                                     <div class="product-remove-area d-flex flex-column align-items-end">
-                                        <div class="product-price">$580.00</div>
-                                        <a href="#" class="product-remove">Remove</a>
+                                        <div class="product-price">{{ number_format($item->price)}}</div>
+                                        <a href="/delete-cart/{{$item->rowId}}" class="product-remove">Remove</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- minicart item -->
-                        <div class="minicart-item d-flex">
-                            <div class="mini-img-wrapper">
-                                <img class="mini-img" src="{{('client/img/products/furniture/2.jpg')}}" alt="img">
-                            </div>
-                            <div class="product-info">
-                                <h2 class="product-title"><a href="#">Vita Lounge Chair</a></h2>
-                                <p class="product-vendor">XS / Pink</p>
-                                <div class="misc d-flex align-items-end justify-content-between">
-                                    <div class="quantity d-flex align-items-center justify-content-between">
-                                        <button class="qty-btn dec-qty"><img src="{{('client/img/icon/minus.svg')}}"
-                                                alt="minus"></button>
-                                        <input class="qty-input" type="number" name="qty" value="1" min="0">
-                                        <button class="qty-btn inc-qty"><img src="{{('client/img/icon/plus.svg')}}"
-                                                alt="plus"></button>
-                                    </div>
-                                    <div class="product-remove-area d-flex flex-column align-items-end">
-                                        <div class="product-price">$580.00</div>
-                                        <a href="#" class="product-remove">Remove</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- minicart item -->
-                        <div class="minicart-item d-flex">
-                            <div class="mini-img-wrapper">
-                                <img class="mini-img" src="{{('client/img/products/furniture/3.jpg')}}" alt="img">
-                            </div>
-                            <div class="product-info">
-                                <h2 class="product-title"><a href="#">Sarno Dining Chair</a></h2>
-                                <p class="product-vendor">XS / Dove Gray</p>
-                                <div class="misc d-flex align-items-end justify-content-between">
-                                    <div class="quantity d-flex align-items-center justify-content-between">
-                                        <button class="qty-btn dec-qty"><img src="{{('client/img/icon/minus.svg')}}"
-                                                alt="minus"></button>
-                                        <input class="qty-input" type="number" name="qty" value="1" min="0">
-                                        <button class="qty-btn inc-qty"><img src="{{('client/img/icon/plus.svg')}}"
-                                                alt="plus"></button>
-                                    </div>
-                                    <div class="product-remove-area d-flex flex-column align-items-end">
-                                        <div class="product-price">$580.00</div>
-                                        <a href="#" class="product-remove">Remove</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- minicart item -->
-                        <div class="minicart-item d-flex">
-                            <div class="mini-img-wrapper">
-                                <img class="mini-img" src="{{('client/img/products/furniture/4.jpg')}}" alt="img">
-                            </div>
-                            <div class="product-info">
-                                <h2 class="product-title"><a href="#">Vita Lounge Chair</a></h2>
-                                <p class="product-vendor">XS / Dove Gray</p>
-                                <div class="misc d-flex align-items-end justify-content-between">
-                                    <div class="quantity d-flex align-items-center justify-content-between">
-                                        <button class="qty-btn dec-qty"><img src="{{('client/img/icon/minus.svg')}}"
-                                                alt="minus"></button>
-                                        <input class="qty-input" type="number" name="qty" value="1" min="0">
-                                        <button class="qty-btn inc-qty"><img src="{{('client/img/icon/plus.svg')}}"
-                                                alt="plus"></button>
-                                    </div>
-                                    <div class="product-remove-area d-flex flex-column align-items-end">
-                                        <div class="product-price">$580.00</div>
-                                        <a href="#" class="product-remove">Remove</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
+                    
                     <div class="minicart-footer">
                         <div class="minicart-calc-area">
                             <div class="minicart-calc d-flex align-items-center justify-content-between">
                                 <span class="cart-subtotal mb-0">Subtotal</span>
-                                <span class="cart-subprice">$1548.00</span>
+                                <span class="cart-subprice"><?php echo Cart::subtotal(0) ?></span>
                             </div>
                             <p class="cart-taxes text-center my-4">Taxes and shipping will be calculated at checkout.
                             </p>
                         </div>
                         <div class="minicart-btn-area d-flex align-items-center justify-content-between">
-                            <a href="cart.html" class="minicart-btn btn-secondary">View Cart</a>
-                            <a href="checkout.html" class="minicart-btn btn-primary">Checkout</a>
+                            <a href="/show-cart" class="minicart-btn btn-secondary">View Cart</a>
+                            <a href="/checkout" class="minicart-btn btn-primary">Checkout</a>
                         </div>
                     </div>
                 </div>
+                
                 <div class="cart-empty-area text-center py-5 d-none">
                     <div class="cart-empty-icon pb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none"
@@ -1372,36 +1296,6 @@
             </div>
         </div>
         <!-- product quickview end -->
-
-        <!-- newsletter subscribe modal start -->
-        <div class="modal fade" tabindex="-1" id="modal-subscribe">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content newsletter-modal-content">
-                    <div class="modal-header border-0">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body px-4">
-                        <form action="#" class="newletter-modal-form common-form mx-auto">
-                            <div class="section-header mb-3">
-                                <h4 class="newsletter-modal-heading heading_34 d-flex align-items-center justify-content-center">
-                                    <svg class="newsletter-modal-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                                                            
-                                    SUBSCRIBE & SAVE
-                                </h4>
-                                <hr>
-                                <p class="newsletter-modal-misc text_14 mt-4 text-center">Sign up & be the first to hear about exclusive offers, new arrivals & more.</p>
-                            </div>
-                            <div class="newsletter-input-box d-flex align-items-center">
-                                <input class="mt-2 px-3" type="email" placeholder="Email address">
-                                <button type="submit" class="btn-primary d-block mt-2 btn-signin">SUBSCRIBE</button>
-                            </div>
-                            <p class="newsletter-modal-misc text_14 mt-4 text-center pb-4">You can change your email preference any time by clicking "unsubscribe" in your email.</p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- newsletter subscribe modal end -->
 
         <!-- all js -->
         <script src="{{asset('client/js/vendor.js')}}"></script>
