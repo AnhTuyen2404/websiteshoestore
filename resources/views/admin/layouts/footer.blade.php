@@ -1,12 +1,12 @@
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
+      {{-- <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright &copy; <a href="https://github.com/Prajwal100" target="_blank">Admin</a> {{date('Y')}}</span>
           </div>
         </div>
-      </footer>
+      </footer> --}}
       <!-- End of Footer -->
 
     </div>
@@ -170,3 +170,161 @@
   });
   
 </script>
+@stack('scripts')
+<script>
+  $(document).ready(function(){
+
+    fetch_delivery();
+
+      function fetch_delivery(){
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url : '{{url('/select-feeship')}}',
+                    method: 'POST',
+                    data:{_token:_token},
+                    success:function(data){
+                      $('#load_delivery').html(data);
+                    }
+                });
+            }
+            $(document).on('click', '.delete_feeship', function(){
+                var feeship_id = $(this).data("feeship_id");
+
+                // Hiển thị hộp thoại xác nhận
+                if (confirm("Bạn có chắc chắn muốn xóa không?")) {
+                  
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url:'{{ url('/delete-delivery') }}',
+                        method:"POST",
+                        data:{feeship_id:feeship_id, _token:'{{ csrf_token() }}'},
+                        success:function(data){
+                            fetch_delivery();
+                        }
+                    });
+                }
+            });
+
+      $(document).on('blur','.fee_feeship_edit',function(){
+
+                  var feeship_id = $(this).data('feeship_id');
+                  var fee_value = $(this).text();
+                  var _token = $('input[name="_token"]').val();
+                  // alert(feeship_id);
+                  // alert(fee_value);
+                  $.ajax({
+                      url : '{{url('/update-delivery')}}',
+                      method: 'POST',
+                      data:{feeship_id:feeship_id, fee_value:fee_value, _token:_token},
+                      success:function(data){
+                        fetch_delivery();
+                      }
+                  });
+
+                  });
+      $('.choose').on('change',function(){
+                var action = $(this).attr('id');
+                var ma_id = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                var result = '';
+
+              
+                // alert(action);
+                //  alert(ma_id);
+                //   alert(_token);
+
+                if(action=='city'){
+                    result = 'province';
+                }else{
+                    result = 'wards';
+                }
+                $.ajax({
+                    url : '{{url('/select-delivery')}}',
+                    method: 'POST',
+                    data:{action:action,ma_id:ma_id,_token:_token},
+                    success:function(data){
+                      $('#'+result).html(data);     
+                    }
+                });
+            }); 
+      $('.add_delivery').click(function(){
+
+          var city = $('.city').val();
+          var province = $('.province').val();
+          var wards = $('.wards').val();
+          var fee_ship = $('.fee_ship').val();
+          var _token = $('input[name="_token"]').val();
+          // alert(city);
+          // alert(province);
+          // alert(wards);
+          // alert(fee_ship);
+          $.ajax({
+              url : '{{url('/insert-delivery')}}',
+              method: 'POST',
+              data:{city:city, province:province, _token:_token, wards:wards, fee_ship:fee_ship},
+              success:function(data){
+                  fetch_delivery();
+                  
+              }
+          });
+  });
+})
+</script>
+<script>
+  document.getElementById('search-input').addEventListener('keyup', function() {
+      const query = this.value.toLowerCase();
+      const accountList = document.getElementById('account-list');
+      const rows = accountList.getElementsByTagName('tr');
+      
+      for (let row of rows) {
+          const name = row.cells[1].textContent.toLowerCase();
+          if (name.includes(query)) {
+              row.style.display = '';
+          } else {
+              row.style.display = 'none';
+          }
+      }
+  });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function updateStatus(customerId) {
+            if (confirm('Are you sure you want to proceed with this action?')) {
+                const newStatus = $('#status-update-' + customerId).val();
+    
+                // Gọi Ajax
+                $.ajax({
+                    type: 'POST',
+                    url: `/update-account-status/${customerId}`,
+                    data: {
+                        status: newStatus,
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            // Hiển thị thông báo thành công
+                            alert(response.message);
+                        } else {
+                            // Xử lý lỗi
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        // Xử lý lỗi kết nối hoặc lỗi server
+                        alert('Error.');
+                    }
+                });
+            }
+        }
+    </script>
+    <script>
+      function confirmDelete(accountId) {
+          var result = confirm("Are you sure you want to delete this account?");
+  
+          if (result) {
+              // Nếu người dùng chấp nhận xóa, thực hiện hành động xóa
+              window.location.href = '/account/' + accountId;
+          }
+      }
+  </script>

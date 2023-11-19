@@ -1,5 +1,6 @@
 @extends('layouts.client')
 @section('content')
+@include('sweetalert::alert')
 <body>
         <!-- breadcrumb start -->
         <div class="breadcrumb">
@@ -34,8 +35,9 @@
                                     <p class="collection-counter text_16 mb-0 ms-2">(237 items)</p>
                                 </div>
                                 <div class="filter-sorting">
+                                    @csrf
                                     <div class="collection-sorting position-relative d-none d-lg-block">
-                                        <div
+                                        {{-- <div
                                             class="sorting-header text_16 d-flex align-items-center justify-content-end">
                                             <span class="sorting-title me-2">Sort by:</span>
                                             <span class="active-sorting">Featured</span>
@@ -47,18 +49,21 @@
                                                     <polyline points="6 9 12 15 18 9"></polyline>
                                                 </svg>
                                             </span>
-                                        </div>
-                                        <ul class="sorting-lists list-unstyled m-0">
-                                            <li><a href="#" class="text_14">Featured</a></li>
-                                            <li><a href="#" class="text_14">Best Selling</a></li>
+                                        </div> --}}
+                                        
+                                        {{-- <ul class="sorting-lists list-unstyled m-0" name="sort" id="sort">
                                             <li><a href="#" class="text_14">Alphabetically, A-Z</a></li>
                                             <li><a href="#" class="text_14">Alphabetically, Z-A</a></li>
                                             <li><a href="#" class="text_14">Price, low to high</a></li>
                                             <li><a href="#" class="text_14">Price, high to low</a></li>
-                                            <li><a href="#" class="text_14">Date, old to new</a></li>
-                                            <li><a href="#" class="text_14">Date, new to old</a></li>
-                                        </ul>
+                                        </ul> --}}
                                     </div>
+                                    <select name="sort" id="sort" class="collection-sorting position-relative d-none d-lg-block">
+                                        <option value="{{Request::url()}}?sort_by=kytu_az" class="text_14">Alphabetically, A-Z</option>
+                                       <option value="{{Request::url()}}?sort_by=kytu_za" class="text_14">Alphabetically, Z-A</option>
+                                       <option value="{{Request::url()}}?sort_by=tang_dan" class="text_14">Price, low to high</option>
+                                       <option value="{{Request::url()}}?sort_by=giam_dan" class="text_14">Price, high to low</option>
+                                   </select> 
                                     <div class="filter-drawer-trigger mobile-filter d-flex align-items-center d-lg-none">
                                         <span class="mobile-filter-icon me-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -186,35 +191,6 @@
                                     <h5 class="heading_24">Filter By</h4>
                                     <button type="button" class="btn-close text-reset filter-drawer-trigger d-lg-none"></button>
                                 </div>
-
-                                <div class="filter-widget d-lg-none">
-                                    <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
-                                        data-bs-toggle="collapse" data-bs-target="#filter-mobile-sort">
-                                        <span>
-                                            <span class="sorting-title me-2">Sort by:</span>
-                                            <span class="active-sorting">Featured</span>
-                                        </span>
-                                        <span class="faq-heading-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <div id="filter-mobile-sort" class="accordion-collapse collapse show">
-                                        <ul class="sorting-lists-mobile list-unstyled m-0">
-                                            <li><a href="#" class="text_14">Featured</a></li>
-                                            <li><a href="#" class="text_14">Best Selling</a></li>
-                                            <li><a href="#" class="text_14">Alphabetically, A-Z</a></li>
-                                            <li><a href="#" class="text_14">Alphabetically, Z-A</a></li>
-                                            <li><a href="#" class="text_14">Price, low to high</a></li>
-                                            <li><a href="#" class="text_14">Price, high to low</a></li>
-                                            <li><a href="#" class="text_14">Date, old to new</a></li>
-                                            <li><a href="#" class="text_14">Date, new to old</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
                                 <div class="filter-widget">
                                     <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
                                         data-bs-toggle="collapse" data-bs-target="#filter-collection">
@@ -228,31 +204,31 @@
                                         </span>
                                     </div>
                                     <div id="filter-collection" class="accordion-collapse collapse show">
-                                        @foreach( $AllCategory as  $key =>  $item )
                                         <ul class="filter-lists list-unstyled mb-0">
-                                            <li class="filter-item">
-                                                <label class="filter-label">
-                                                    <input type="checkbox" />
-                                                    <span class="filter-checkbox rounded me-2"></span>
-                                                    <span class="filter-text">{{$item->category_name}}</span>   
-                                                </label>
-                                            </li>  
+                                            {{-- @php
+                                                $category_id=[];
+                                                $category_arr=[];
+                                                if(isset($_GET['cate'])){
+                                                    $category_id= $_GET['cate'];
+                                                }else{
+                                                    $category_id = $name ->category_id.",";
+                                                }
+                                                $category_arr = explode(",",$category_id);
+                                            @endphp --}}
+                                            @foreach($AllCategory as $key => $item)
+                                                <li class="filter-item">
+                                                    <label class="filter-label">
+                                                        <input type="checkbox" 
+                                                       {{-- {{ in_array($cate->category_id, $category_arr) ? 'checked' : ''}} --}}
+                                                        data-filters="category" value="{{ $item->category_id }}" class="category-checkbox category-filter" name="category-filte"/>
+                                                        <span class="filter-checkbox rounded me-2"></span>
+                                                        <span class="filter-text">{{$item->category_name}}</span>   
+                                                    </label>
+                                                </li>
+                                            @endforeach
                                         </ul>
-                                        @endforeach
                                     </div>
-                                </div>
-                                <div class="filter-widget">
-                                    <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
-                                        data-bs-toggle="collapse" data-bs-target="#filter-availability">
-                                        Availability
-                                        <span class="faq-heading-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" class="icon icon-down">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                            </svg>
-                                        </span>
-                                    </div>
+                                    
                                 </div>
                                 <div class="filter-widget">
                                     <div class="filter-header faq-heading heading_18 d-flex align-items-center justify-content-between border-bottom"
@@ -269,13 +245,13 @@
                                     <div id="filter-price" class="accordion-collapse collapse show">
                                         <div class="filter-price d-flex align-items-center justify-content-between">
                                             <div class="filter-field">
-                                                <input class="field-input" type="number" placeholder="$0" min="0"
-                                                    max="2000.00">
+                                                <input class="field-input" type="number" name="start_price" id="start_price"
+                                                placeholder="$0" min="0" max="2000.00">
                                             </div>
                                             <div class="filter-separator px-3">To</div>
                                             <div class="filter-field">
-                                                <input class="field-input" type="number" min="0" placeholder="$595.00"
-                                                    max="2000.00">
+                                                <input class="field-input" type="number" name="end_price" id="end_price"
+                                                min="0" placeholder="$595.00" max="2000.00">
                                             </div>
                                         </div>
                                     </div>
@@ -301,14 +277,6 @@
                                                     <span class="filter-text">XS</span>
                                                 </label>
                                             </li>
-                                            <li class="filter-item">
-                                                <label class="filter-label">
-                                                    <input type="checkbox" />
-                                                    <span class="filter-checkbox rounded me-2"></span>
-                                                    S
-                                                </label>
-                                            </li>
-                                            
                                         </ul>
                                     </div>
                                 </div>
@@ -433,3 +401,31 @@
     </div>
 </body>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    #(document).ready(function () {
+        $('#sort').on('change',function () {
+            var url = $(this).val();
+            if(url){
+                window.location = url;
+            }
+            return false;
+        });
+    });
+
+    $('.category-filter').click(function () {
+        var category = [], temArray = [];
+
+            $.each($("[data-filters = 'category']:checked")), function(){
+                temArray.push($(this).val());
+            }
+            temArray.reverse();
+            if(temArray.lenght != 0 ){
+                category+='?cate='+temArray.toString();
+            }
+            window.locatione.href = category
+        });
+    
+
+</script>

@@ -48,7 +48,8 @@ class Order extends Model
         'create_date',
         'total_bill',
         'payment_methods',
-        'shipping_id'
+        'shipping_id',
+        'customer_id'
     ];
     public $timestamps = false;
     public function customer()

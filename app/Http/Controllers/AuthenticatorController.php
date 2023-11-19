@@ -35,9 +35,16 @@ class AuthenticatorController extends Controller
         } else {
             $customer = DB::table('customer')->where('customer_email', $request->email)->first();
             if ($customer) {
-                if ($customer->status === 'active') {
-                    $password = DB::table('customer')->where('customer_password',md5($request->password))->first();
-                    if ($password) {
+                if ($customer->login_attempts >= 5) {
+                    // Khóa tài khoản
+                    DB::table('customer')->where('customer_id', $customer->customer_id)->update(['status' => 'locked']);
+                    Alert::warning('Warning!', 'Your account has been locked due to too many unsuccessful login attempts');
+                    return Redirect::to('/show-login');
+                }elseif ($customer->status === 'active') {
+                    $hashedPassword = md5($request->password);
+                    if ($customer->customer_password === $hashedPassword) {
+                        // Đăng nhập thành công
+                        // Reset số lần đăng nhập sai
                         $customerData = [
                             'id' => $customer->customer_id,
                             'name' => $customer->customer_name,
@@ -47,9 +54,18 @@ class AuthenticatorController extends Controller
                         Session::put('customer_data', $customerData);
                         Session::put('name', $customer->customer_name);
                         Session::put('customer', $customer->customer_id);
+    
+                        // Reset số lần đăng nhập sai
+                        DB::table('customer')->where('customer_id', $customer->customer_id)->update(['login_attempts' => 0]);
+    
                         Alert::success('Thông Báo!', 'Đăng nhập thành công');
                         return Redirect::to('/');
                     } else {
+                        // Sai mật khẩu
+                        // Tăng số lần đăng nhập sai
+                        $loginAttempts = $customer->login_attempts + 1;
+                        DB::table('customer')->where('customer_id', $customer->customer_id)->update(['login_attempts' => $loginAttempts]);
+    
                         Alert::warning('Cảnh Báo!', 'Password không đúng');
                         return Redirect::to('/show-login');
                     }
@@ -66,6 +82,7 @@ class AuthenticatorController extends Controller
             }
         }
     }
+    
 
     public function Register(Request $request) {
         $emailExists = DB::table('customer')->where('customer_email', $request->email)->exists();
@@ -105,32 +122,9 @@ class AuthenticatorController extends Controller
 
     public function Profile(){
         $id = Session::get('customer');
-        // $customer = DB::table('customer')->where('customer_id', $id)->first();
         $data_customer = DB::table('customer')->where('customer_id', $id)->get();
         return view('client.profile')->with('data_customer',$data_customer);
 }
-    // public function editProfile(Request $request){
-    //     // $old_password = DB::table('customer')->where('password',$request->old_password)->first();
-    //     // if(!$old_password){
-    //     //     Alert::info('Thông Báo', 'Mật Khẩu cũ  không đúng !');
-    //     //     return Redirect::to('/login');
-    //     // }
-    //     // if($request->newpassword != $request->newpassword2){
-    //     //     Alert::info('Thông Báo', 'Mật khẩu mới và xác nhận mất khẩu không đúng !');
-    //     //     return Redirect::to('/login');
-    //     // }
-
-    //     $id = Session::get('customer');
-    //     $data = array();
-    //     $data['customer_name'] = $request->name ;
-    //     $data['customer_phone'] =$request->phone  ;
-    //     $data['customer_address'] = $request->address;
-    //     // $data['password'] = $request->newpassword ;
-    //     DB::table('customer')->where('customer_id',$id)->update( $data);
-    //     Alert::success('Thông Báo', ' Cập nhật thành công! ');
-    //     return Redirect::to('/profile');
-
-    // }
 
     public function editProfile(Request $request){
         // $id = Session::get('customer');
@@ -143,8 +137,40 @@ class AuthenticatorController extends Controller
         $phone = $request->input('phone');
         $address = $request->input('address');
         DB::update('UPDATE `customer` SET `customer_name`= ?,`customer_phone`= ? ,`customer_address`= ? where customer_id = ?',[$name, $phone, $address,$id]);
-        Alert::success('Thông Báo', ' Cập nhật thành công! ');
+        Alert::success('Thông Báo', ' Update successful! ');
         return Redirect::to('/profile');
     }
+    public function changePassword(Request $request){
+        return view('client.changepassword');
+    }
+
+    public function saveChangePassword(Request $request){
+        $old_password = DB::table('customer')->where('customer_password', md5($request->old_password))->first();
+        if (!$old_password) {
+            Alert::info('Notification', 'The old password is incorrect!');
+            return view('client.changepassword');
+        }
+    
+        $new_password = $request->new_password;
+    
+        // Thêm ràng buộc cho new_password
+        if (strlen($new_password) < 8 || !preg_match('/[A-Z]/', $new_password) || !preg_match('/[0-9]/', $new_password) || !preg_match('/[^A-Za-z0-9]/', $new_password)) {
+            Alert::info('Notification', 'New password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.');
+            return view('client.changepassword');
+        }
+    
+        if ($new_password != $request->confirm_password) {
+            Alert::info('Notification', 'Password not match');
+            return view('client.changepassword');
+        }
+    
+        $id = Session::get('customer');
+        $data = array();
+        $data['customer_password'] = md5($new_password);
+        DB::table('customer')->where('customer_id', $id)->update($data);
+        Alert::success('Notification', 'Update successful!');
+        return Redirect::to('/profile');
+    }
+    
     
 }

@@ -22,7 +22,9 @@ class Customer extends Model
     'customer_phone',
     'customer_email',
     'customer_password',
-    'token',]; // Các trường có thể gán dữ liệu từ form
+    'token',
+    'status',
+    'login_attempts']; // Các trường có thể gán dữ liệu từ form
     
     use Notifiable;
 

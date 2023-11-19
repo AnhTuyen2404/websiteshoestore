@@ -1,10 +1,9 @@
 @extends('layouts.client')
 @section('content')
+@include('sweetalert::alert')
         <!-- Start Page Banner -->
         <!-- breadcrumb start -->
-        <form action="/save-cart" method="post">
         <div class="breadcrumb">
-            
             <div class="container">
                 {{csrf_field()}}
                 <ul class="list-unstyled d-flex align-items-center m-0">
@@ -37,13 +36,20 @@
                     @endforeach
                 </ul>
             </div>
-        
         </div>
-    
         <!-- breadcrumb end -->
-
         <main id="MainContent" class="content-for-layout">
-            {{csrf_field()}}
+            <form action="{{URL::to('/save-cart')}}" method="post">
+                {{csrf_field()}}
+                <input type="hidden" value="{{$item->product_id}}" class="cart_product_id_{{$item->product_id}}">
+
+                <input type="hidden" value="{{$item->product_name}}" class="cart_product_name_{{$item->product_id}}">
+
+                <input type="hidden" value="{{$item->product_img}}" class="cart_product_image_{{$item->product_id}}">
+
+                <input type="hidden" value="{{$item->quantity}}" class="cart_product_quantity_{{$item->product_id}}">
+
+                <input type="hidden" value="{{$item->price}}" class="cart_product_price_{{$item->product_id}}">
             <div class="product-page mt-100">
                 <div class="container">
                     @foreach( $ProductDetails as  $key => $item)
@@ -91,28 +97,12 @@
                         </div>
                         <div class="col-lg-6 col-md-12 col-12">
                             <div class="product-details ps-lg-4">
+                                @if($item->quantity !=0)
                                 <div class="mb-3"><span class="product-availability">In Stock</span></div>
+                                @else
+                                <div class="mb-3"><span class="product-availability">Out of Stock</span></div>
+                                @endif
                                 <h2 class="product-title mb-3">{{ $item->product_name}}</h2>
-                                <div class="product-rating d-flex align-items-center mb-3">
-                                    <span class="star-rating">
-                                        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#FFAE00"/>
-                                        </svg>
-                                        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#FFAE00"/>
-                                        </svg>
-                                        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#FFAE00"/>
-                                        </svg>
-                                        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#FFAE00"/>
-                                        </svg>
-                                        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.168 5.77344L10.082 5.23633L8 0.566406L5.91797 5.23633L0.832031 5.77344L4.63086 9.19727L3.57031 14.1992L8 11.6445L12.4297 14.1992L11.3691 9.19727L15.168 5.77344Z" fill="#B2B2B2"/>
-                                        </svg>                                            
-                                    </span>
-                                    <span class="rating-count ms-2">(22)</span>
-                                </div>
                                 <div class="product-price-wrapper mb-4">
                                     <span class="product-price regular-price">{{number_format($item->price)}}</span>
                                     <del class="product-price compare-price ms-2">{{number_format($item->price)}}</del>
@@ -129,29 +119,33 @@
                                     
                                 </div>
                                 <div class="product-vendor product-meta mb-3">
-                                    <strong class="label">Product Code: </strong>{{$item->product_id}}
+                                    <strong class="label">Product Code: </strong>
+                                    {{$item->product_id}}
                                 </div>
-
                                 <div class="product-variant-wrapper">
                                     <div class="product-variant product-variant-other">
                                         <strong class="label mb-1 d-block">Size:</strong>
-                                        
                                             <ul class="variant-list list-unstyled d-flex align-items-center flex-wrap">
                                                 @foreach ($ProductSizes as  $key => $item)
                                                     <li class="variant-item">
-                                                        <input type="radio" value="{{ $item->size }}" checked>
-                                                        <label class="variant-label">{{ $item->size }}</label>
+                                                        <input type="radio" value="{{ $item->size }}" id="size{{$item->size}}" name="size">
+                                                        <label class="variant-label" for="size{{$item->size}}">{{ $item->size }}</label>
+                                                        <input name="productid_hidden" type="hidden"  value="{{$item->product_id}}" />
                                                     </li>
                                                 @endforeach
                                             </ul>
-                                        
                                     </div>
                                 </div>
                                 <div class="misc d-flex align-items-end justify-content-between mt-4">
                                     <div class="quantity d-flex align-items-center justify-content-between">
-                                    <button class="qty-btn dec-qty" id="minus"><img src="{{asset('client/img/icon/minus.svg')}}" alt="minus"></button>
-                                        <input class="qty-input" type="number" name="qty" value="1" min="0">
-                                        <button class="qty-btn inc-qty" id="plus"><img src="{{asset('client/img/icon/plus.svg')}}" alt="plus"></button>
+                                        <button class="qty-btn dec-qty" id="minus" type="button">
+                                            <img src="{{asset('client/img/icon/minus.svg')}}" alt="minus">
+                                        </button>
+                                            <input class="qty-input" type="number" name="quantity" id="qty" value="1" min="1">
+                                            <input name='productid_hidden' value='{{$item->product_id}}' type="hidden">
+                                        <button class="qty-btn inc-qty" id="plus" type="button">
+                                            <img src="{{asset('client/img/icon/plus.svg')}}" alt="plus">
+                                        </button>
                                     </div>
                                 </div>
 
@@ -165,7 +159,7 @@
                                         </a>
                                     </div>
                                     <div class="buy-it-now-btn mt-2">
-                                        <button type="submit" class="position-relative btn-atc btn-buyit-now buyItNowButton">BUY IT NOW</button>
+                                        <button type="#" class="position-relative btn-atc btn-buyit-now buyItNowButton">BUY IT NOW</button>
                                     </div>
                                 </form>                   
 
@@ -178,7 +172,7 @@
                 </div>
                 @endforeach
             </div>
-
+        </form>
             <!-- product tab start -->
             <div class="product-tab-section mt-100" data-aos="fade-up" data-aos-duration="700">
                 <div class="container">
@@ -323,7 +317,7 @@
                                 <div class="product-card-action product-card-action-2">
                                     <a href="#quickview-modal" class="quickview-btn btn-primary"
                                         data-bs-toggle="modal">QUICKVIEW</a>
-                                    <a href="#" class="addtocart-btn btn-primary">ADD TO CART</a>
+                                    {{-- <a href="/add-one-cart/{{ $item->product_id}}" class="addtocart-btn btn-primary">ADD TO CART</a> --}}
                                 </div>
 
                                 <a href="wishlist.html" class="wishlist-btn card-wishlist">
@@ -354,26 +348,21 @@
             </div>
             <!-- you may also lik end -->
         </main>
-    </form>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Lấy các nút bằng cách sử dụng class hoặc id
-            const addToCartButton = document.querySelector(".addToCartButton");
-            const buyItNowButton = document.querySelector(".buyItNowButton");
-        
-            // Thêm sự kiện click cho nút "ADD TO CART"
-            addToCartButton.addEventListener("click", function (event) {
-                event.preventDefault(); 
-                window.location.href = "/add-one-cart/{{$item->product_id}}";
-            });
-        
-            // Thêm sự kiện click cho nút "BUY IT NOW"
-            buyItNowButton.addEventListener("click", function (event) {
-                event.preventDefault(); // Ngăn chặn mặc định khi click
-                // Thực hiện chức năng BUY IT NOW ở đây
-                // Ví dụ: gửi yêu cầu AJAX hoặc điều hướng trang
+
+        $(document).ready(function () {
+                $('input[type=radio][name=size]').change(function () {
+                // Bỏ chọn tất cả các radio khác
+                $('input[type=radio][name=size]').prop('checked', false);
+                
+                // Đánh dấu radio được chọn
+                $(this).prop('checked', true);
+
+                // Xử lý khi người dùng chọn size
+                var selectedSize = $(this).val();
+                $('#selected_size').val(selectedSize);
             });
         });
-        </script>
+    </script>
         
-        @endsection
+@endsection

@@ -13,6 +13,8 @@ use App\Models\Order;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
+
 class UserController extends ContacController
 {
     public function accounts()
@@ -27,22 +29,13 @@ class UserController extends ContacController
 
         if ($account) {
             $account->delete();
-            return redirect()->route('admin.accounts')->with('success', 'Tài khoản đã được xóa thành công.');
+            Alert::success('succes','The account has been successfully deleted.');
+            return redirect()->route('admin.accounts');
         } else {
-            return redirect()->route('admin.accounts')->with('error', 'Không tìm thấy tài khoản.');
+            return redirect()->route('admin.accounts')->with('error', 'ERROR');
         }
     }
 
-    public function showDeleteConfirmation($id)
-    {
-        $account = Customer::find($id);
-
-        if ($account) {
-            return view('admin.user.deleteConfirmation', compact('account'));
-        } else {
-            return redirect()->route('admin.accounts')->with('error', 'Không tìm thấy tài khoản.');
-        }
-    }
 
 
     public function updateAccount(Request $request, $id)
@@ -51,10 +44,10 @@ class UserController extends ContacController
             'customer_name' => 'required',
             'customer_phone' => 'required|numeric',
             'customer_email' => 'required|email',
-            'customer_password' => [
-                'required',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
-            ],
+            // 'customer_password' => [
+            //     'required',
+            //     'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+            // ],
         ]);
 
         if ($validator->fails()) {
@@ -66,17 +59,32 @@ class UserController extends ContacController
             'customer_name' => $request->input('customer_name'),
             'customer_phone' => $request->input('customer_phone'),
             'customer_email' => $request->input('customer_email'),
-            'customer_password' => $request->input('customer_password'),
+            // 'customer_password' => $request->input('customer_password'),
         ]);
-
-        return redirect()->route('admin.accounts')->with('success', 'Thông tin tài khoản đã được cập nhật.');
+        Alert::success('succes','Account information has been updated.');
+        return redirect()->route('admin.accounts');
 
     }
+            public function updateAccountStatus($id, Request $request)
+        {
+            // Validate request if needed
+
+            $newStatus = $request->input('status');
+
+            // Update the status in the database
+            $account = Customer::find($id);
+            $account->status = $newStatus;
+            $account->login_attempts = 0;
+            $account->save();
+
+            return response()->json(['success' => true, 'message' => 'Status updated successfully']);
+        }
 
     public function editAccount($id)
     {
         $account = Customer::where('customer_id', $id)->first(); // Tìm tài khoản dựa trên id
         return view('admin.user.editAccount', ['id' => $id,'account' => $account]); // Điều hướng tới view sửa
     }
+    
 
 }

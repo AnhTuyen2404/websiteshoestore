@@ -1,5 +1,6 @@
 @extends('layouts.client')
-        @section('content')
+@section('content')
+@include('sweetalert::alert')
         <style>
             :root {
                 --primary-color: #00234D;

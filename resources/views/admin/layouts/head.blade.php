@@ -47,4 +47,5 @@
 	<!-- Style css -->
     <link href="{{('backend/css/style.css')}}" rel="stylesheet">
 	@stack('styles')
+
 </head>

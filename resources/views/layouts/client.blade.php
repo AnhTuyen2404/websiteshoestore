@@ -73,8 +73,8 @@ $customerData = Session::get('customer_data');
     <link rel="stylesheet" href="{{ asset('client/css/vendor.css') }}">
     <link rel="stylesheet" href="{{ asset('client/css/style.css') }}">
 </head>
-
 <body>
+    @include('sweetalert::alert')
     <div class="body-wrapper">
         <!-- announcement bar start -->
         <div class="announcement-bar bg-4 py-1 py-lg-2">
@@ -130,7 +130,7 @@ $customerData = Session::get('customer_data');
                                         </ul>
                                     </div>
                                 @else
-                                    <a class="announcement-login announcement-text text-white" href="show-login">
+                                    <a class="announcement-login announcement-text text-white" href="{{URL::to('/show-login')}}">
                                         <svg class="icon icon-user" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M5 0C3.07227 0 1.5 1.57227 1.5 3.5C1.5 4.70508 2.11523 5.77539 3.04688 6.40625C1.26367 7.17188 0 8.94141 0 11H1C1 8.78516 2.78516 7 5 7C7.21484 7 9 8.78516 9 11H10C10 8.94141 8.73633 7.17188 6.95312 6.40625C7.88477 5.77539 8.5 4.70508 8.5 3.5C8.5 1.57227 6.92773 0 5 0ZM5 1C6.38672 1 7.5 2.11328 7.5 3.5C7.5 4.88672 6.38672 6 5 6C3.61328 6 2.5 4.88672 2.5 3.5C2.5 2.11328 3.61328 1 5 1Z" fill="#fff" />
                                         </svg>
@@ -213,37 +213,17 @@ $customerData = Session::get('customer_data');
                                             </span>
                                         </div>
                                         <div class="submenu-transform submenu-transform-desktop">
-                                            <ul class="submenu list-unstyled">
+                                            <ul class="submenu list-unstyled">  
                                                 <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub" href="about-us.html">About
-                                                        Us</a>
+                                                    <a class="nav-link-sub nav-text-sub"
+                                                        href="{{URL::to('/whishlist')}}">Wishlist</a>
                                                 </li>
                                                 <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub" href="contact.html">Contact</a>
-                                                </li>
-                                                <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub" href="faq.html">FAQ</a>
-                                                </li>
-                                                <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub" href="404.html">404 page</a>
-                                                </li>
-                                                <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub" href="login.html">Login</a>
+                                                    <a class="nav-link-sub nav-text-sub" href="{{URL::to('/show-cart')}}">Cart</a>
                                                 </li>
                                                 <li class="menu-list-item nav-item-sub">
                                                     <a class="nav-link-sub nav-text-sub"
-                                                        href="register.html">Register</a>
-                                                </li>
-                                                <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub"
-                                                        href="whishlist">Wishlist</a>
-                                                </li>
-                                                <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub" href="show-cart">Cart</a>
-                                                </li>
-                                                <li class="menu-list-item nav-item-sub">
-                                                    <a class="nav-link-sub nav-text-sub"
-                                                        href="checkout">Checkout</a>
+                                                        href="{{URL::to('/checkout')}}">Checkout</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -874,7 +854,7 @@ $customerData = Session::get('customer_data');
                             </div>
                             <div class="product-info">
                                 <h2 class="product-title"><a href="#">{{$item->name}}</a></h2>
-                                <p class="product-vendor">XS / Dove Gray</p>
+                                <p class="product-vendor">Size: {{$item->options->size}} </p>
                                 <div class="misc d-flex align-items-end justify-content-between">
                                     <div class="quantity d-flex align-items-center justify-content-between">
                                         <button class="qty-btn dec-qty"><img src="{{('client/img/icon/minus.svg')}}"
@@ -903,7 +883,7 @@ $customerData = Session::get('customer_data');
                             </p>
                         </div>
                         <div class="minicart-btn-area d-flex align-items-center justify-content-between">
-                            <a href="/show-cart" class="minicart-btn btn-secondary">View Cart</a>
+                            <a href="{{URL::to('/show-cart')}}" class="minicart-btn btn-secondary">View Cart</a>
                             <a href="/checkout" class="minicart-btn btn-primary">Checkout</a>
                         </div>
                     </div>
@@ -1302,5 +1282,106 @@ $customerData = Session::get('customer_data');
         <script src="{{asset('client/js/main.js')}}"></script>
     </div>
 </body>
+<script >
+    // $(document).ready(function(){
+    //         $('.add-to-cart').click(function(){
 
+    //             var id = $(this).data('id_product');
+    //             // alert(id);
+    //             var cart_product_id = $('.cart_product_id_' + id).val();
+    //             var cart_product_name = $('.cart_product_name_' + id).val();
+    //             var cart_product_image = $('.cart_product_image_' + id).val();
+    //             var cart_product_size = $('.cart_product_size_' + id).val();
+    //             var cart_product_quantity = $('.cart_product_quantity_' + id).val();
+    //             var cart_product_price = $('.cart_product_price_' + id).val();
+    //             var cart_product_qty = $('.cart_product_qty_' + id).val();
+    //             var _token = $('input[name="_token"]').val();
+    //             alret(id);
+    //             if(parseInt(cart_product_qty)>parseInt(cart_product_quantity)){
+    //                 alert('Làm ơn đặt nhỏ hơn ' + cart_product_quantity);
+    //             }else{
+
+    //                 $.ajax({
+    //                     url: '{{url('/add-cart-ajax')}}',
+    //                     method: 'POST',
+    //                     data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_size:cart_product_size,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token,cart_product_quantity:cart_product_quantity},
+    //                     success:function(){
+
+    //                         swal({
+    //                                 title: "Đã thêm sản phẩm vào giỏ hàng",
+    //                                 text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+    //                                 showCancelButton: true,
+    //                                 cancelButtonText: "Xem tiếp",
+    //                                 confirmButtonClass: "btn-success",
+    //                                 confirmButtonText: "Đi đến giỏ hàng",
+    //                                 closeOnConfirm: false
+    //                             },
+    //                             function() {
+    //                                 window.location.href = "{{url('/gio-hang')}}";
+    //                             });
+
+    //                     }
+
+    //                 });
+    //             }
+
+                
+    //         });
+    //     });
+
+    $(document).ready(function(){
+        $('.choose').on('change',function(){
+        var action = $(this).attr('id');
+        var ma_id = $(this).val();
+        var _token = $('input[name="_token"]').val();
+        var result = '';
+    //    alert(action)
+    //    alert(ma_id)
+    //    alert(_token)
+        if(action=='city'){
+            result = 'province';
+        }else{
+            result = 'wards';
+        }
+        $.ajax({
+            url : '{{url('/select-delivery-home')}}',
+            method: 'POST',
+            data:{action:action,ma_id:ma_id,_token:_token},
+            success:function(data){
+               $('#'+result).html(data);     
+            }
+        });
+    });
+    });
+      
+    $(document).ready(function(){
+            $('.calculate_delivery').click(function(){
+                var matp = $('.city').val();
+                var maqh = $('.province').val();
+                var xaid = $('.wards').val();
+                var feeship = $('.feeship').val();
+                var _token = $('input[name="_token"]').val();
+                if(matp == '' && maqh =='' && xaid ==''){
+                    alert('Làm ơn chọn để tính phí vận chuyển');
+                }else{
+                    $.ajax({
+                    url : '{{url('/calculate-fee')}}',
+                    method: 'POST',
+                    data:{matp:matp,maqh:maqh,xaid:xaid,feeship:feeship,_token:_token},
+                    success:function(){
+                       location.reload(); 
+                    }
+                    });
+                } 
+        });
+    });
+</script>
+<script>
+    function confirmClearCart() {
+        var result = confirm("Bạn chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?");
+        if (result) {
+            document.getElementById('clearCartForm').submit();
+        }
+    }
+</script> 
 </html>

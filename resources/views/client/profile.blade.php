@@ -45,15 +45,12 @@
                                         <div class="minicart-btn-area d-flex align-items-center justify-content-between flex-wrap">
                                             <button type="submit" class="checkout-page-btn minicart-btn btn-secondary save-profile-btn" style="display: none;">SAVE</button>
                                             <a href="#" class="checkout-page-btn minicart-btn btn-secondary edit-profile-btn">EDIT PROFILE</a>
-                                            <a href="#" class="checkout-page-btn minicart-btn btn-primary">CHANGE YOUR PASSWORD</a>
+                                            <a href="{{URL::to('/change-password')}}" class="checkout-page-btn minicart-btn btn-primary">CHANGE YOUR PASSWORD</a>
                                         </div>
                                     </div>
                                 </form>
-                                
                             </div>
                         </div>
-
-                        
                         @endforeach
                     </div>
                 </div>

@@ -10,7 +10,7 @@
   </ol>
   </div>
     <div class="container">
-        <h2 class="my-4">Sửa Tài khoản #{{ $account->customer_name }}</h2>
+        <h2 class="my-4">Edit Account {{ $account->customer_name }}</h2>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -24,12 +24,12 @@
         <form action="{{ route('admin.updateAccount', ['id' => $account->customer_id]) }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="customer_name">Tên khách hàng</label>
+                <label for="customer_name">Customer Name</label>
                 <input type="text" class="form-control" id="customer_name" name="customer_name" value="{{ $account->customer_name }}">
             </div>
             <br>
             <div class="form-group">
-                <label for="customer_phone">Số điện thoại</label>
+                <label for="customer_phone">Phone</label>
                 <input type="text" class="form-control" id="customer_phone" name="customer_phone" value="{{ $account->customer_phone }}">
             </div>
             <br>
@@ -38,10 +38,10 @@
                 <input type="email" class="form-control" id="customer_email" name="customer_email" value="{{ $account->customer_email }}">
             </div>
             <br>
-            <div class="form-group">
-                <label for="customer_password">Mật khẩu</label>
-                <input type="text" class="form-control" id="customer_password" name="customer_password" value="{{ $account->customer_password }}">
-            </div>
+            {{-- <div class="form-group">
+                <label for="customer_password">Password</label>
+                <input type="text" class="form-control" id="customer_password" name="customer_password" value="{{$account->customer_password }}">
+            </div> --}}
             <br>
             <button type="submit" class="btn btn-primary">Lưu</button>
         </form>

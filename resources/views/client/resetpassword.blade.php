@@ -1,5 +1,6 @@
 @extends('layouts.client')
 @section('content')
+@include('sweetalert::alert')
         <!-- breadcrumb start -->
         <div class="breadcrumb">
             <div class="container">

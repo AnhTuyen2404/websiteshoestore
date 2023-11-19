@@ -1,5 +1,6 @@
 @extends('layouts.client')
-        @section('content')
+@section('content')
+@include('sweetalert::alert')
         <main id="MainContent" class="content-for-layout">
             <!-- slideshow start -->
             <div class="slideshow-section position-relative">

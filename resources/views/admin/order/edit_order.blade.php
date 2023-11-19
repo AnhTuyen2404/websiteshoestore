@@ -52,11 +52,6 @@
             <div class="form-group">
                 <label for="payment_methods">Payment Methods:</label>
                 <input type="text" id="payment_methods" name="payment_methods" class="form-control" value="{{ $order->payment_methods }}">
-                <select id="payment_methods" name="payment_methods" class="form-control">
-                    <option value="Cash on Delivery" {{ $order->order_state === 'Cash on Delivery' ? 'selected' : '' }}>Cash on Delivery</option>
-                    <option value="Online Payment" {{ $order->order_state === 'Online Payment' ? 'selected' : '' }}>Online Payment</option>
-                    
-                </select>
             </div>
 
             <div class="form-group">

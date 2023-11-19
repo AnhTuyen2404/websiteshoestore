@@ -54,6 +54,27 @@
                           <li><a href="blog.create">Add Blog</a></li>
                         </ul>
                   </li>
+                  {{-- Fee Ship --}}
+                  <li>
+                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                        <span class="nav-text">Fee Option</span>
+                      </a>
+                        <ul aria-expanded="false">
+                          <li><a href="delivery">Fee</a></li>
+                        </ul>
+                  </li>
+                  {{-- Coupon --}}
+                  <li>
+                    <a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                        <span class="nav-text">Coupon Option</span>
+                      </a>
+                        <ul aria-expanded="false">
+                          <li><a href="list-coupon">Coupon List</a></li>
+                          <li><a href="insert-coupon"> Insert Coupon</a></li>
+                        </ul>
+                  </li>
                   {{-- User --}}
                   <li><a href="{{ route('admin.accounts') }}" class="" aria-expanded="false">
                     <i class="fas fa-user-check"></i>

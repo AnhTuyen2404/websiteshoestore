@@ -1,6 +1,6 @@
 @extends('layouts.client')
-        @section('content')
-       
+@section('content')
+@include('sweetalert::alert')
         <!-- Start Page Banner -->
         <div class="page-title-area">
             <div class="container">

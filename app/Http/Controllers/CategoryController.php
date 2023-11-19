@@ -17,7 +17,6 @@ class CategoryController extends Controller
     public function index()
     {
         $category=DB::select('SELECT * FROM `category` order by category_id ASC');
-        // return $category;
         return view('admin.category.index')->with('categories',$category);
     }
 
